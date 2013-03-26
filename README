@@ -1,0 +1,8 @@
+Installation
+============
+
+1) Clone the repository.
+2) Make directories 'temp' and 'log' writeble to webserver.
+3) Copy app/config/*neon.sample to app/config/*.neon.
+4) Set database connection settings into app/config/config.neon.
+5) Create database with sql/schema.sql and fill it with sql/initial-data.sql.
