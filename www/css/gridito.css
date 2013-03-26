@@ -1,0 +1,78 @@
+/**
+ * Gridito CSS
+ */
+
+/* flashes */
+div.gridito-flash {
+	padding: 10px;
+	margin: 10px 0;
+}
+div.gridito-flash .ui-icon {
+	float: left;
+	margin-right: 5px;
+}
+
+/* toolbar */
+.gridito-toolbar {
+	margin-bottom: 10px;        
+}
+.gridito-toolbar .ui-button {
+	margin-right: 10px;
+}
+
+/* table */
+.gridito-table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.gridito-table th {
+	padding: 5px;
+	text-align: left;
+}
+.gridito-table td {
+	padding: 5px;
+	border: 1px solid #888;
+}
+.gridito-table .ui-state-hover td {
+	font-weight: normal;
+	background-color: #eaeaea;
+}
+.gridito-actioncell .ui-button {
+	margin: 0 10px 0 0;
+}
+.gridito-actioncell .ui-button:first-child {
+	margin-left: 0;
+}
+.gridito-actioncell {
+	text-align: right;
+}
+
+.gridito-button {
+   padding: .4em 1em;
+   display:inline-block;
+   line-height: 1.4;
+   padding-left: 1px; padding-right: 1px;
+   border:1px solid transparent;
+   /*border:1px solid black;*/
+}
+/* th */
+.gridito-table th .gridito-sorting {
+	float:right;
+	margin-left: 0.5em;
+	position: relative;
+	top: 0.2em;
+}
+.gridito-table th .gridito-sorting .ui-icon {
+	opacity: 0.5;
+}
+.gridito-table th:hover .gridito-sorting .ui-icon, .gridito-table th .gridito-sorting .ui-icon.ui-icon-triangle-1-s, .gridito-table th .gridito-sorting .ui-icon.ui-icon-triangle-1-n {
+	opacity: 1;
+}
+
+
+
+/* paginator */
+.gridito-paginator {
+	margin-top: 10px;
+}

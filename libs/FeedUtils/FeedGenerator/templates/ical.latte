@@ -1,0 +1,37 @@
+{contentType text/calendar; charset=utf-8}
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//OOB//iCal generator//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:{$title|ical}
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Prague
+X-LIC-LOCATION:Europe/Prague
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+END:STANDARD
+END:VTIMEZONE
+{foreach $items as $item}
+BEGIN:VEVENT{if $item->uid}
+UID:{!$item->uid|ical}{/if}{if $item->dtstamp}
+DTSTAMP{!$item->dtstamp|icalDate:true}{/if}{if $item->dtstart}
+DTSTART{!$item->dtstart|icalDate:$item->dtstart_tm}{/if}{if $item->dtend}
+DTEND{!$item->dtend|icalDate:$item->dtend_tm}{/if}{if $item->summary}
+SUMMARY:{!$item->summary|ical}{/if}{if $item->location}
+LOCATION:{!$item->location|ical}{/if}{if $item->url}
+URL:{!$item->url|ical}{/if}
+END:VEVENT
+{/foreach}
+END:VCALENDAR

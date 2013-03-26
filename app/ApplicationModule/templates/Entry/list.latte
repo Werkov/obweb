@@ -1,0 +1,15 @@
+{layout "../../../templates/Record/@list.latte"}
+
+
+{block #grid}
+{control grid}
+
+<ul>
+   <li n:if="$control->ACLExportCsob()"><a  n:href=":Application:Entry:exportCsob, parent => $race->id">Export přihlášek v ČSOB formátu</a></li>
+   <li n:if="$control->ACLExportSums()"><a  n:href=":Application:Entry:exportSums, parent => $race->id">Export součtů</a></li>
+
+</ul>
+
+{/block}
+
+

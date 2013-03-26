@@ -1,0 +1,24 @@
+{block directoryViewer}
+<div class="directory-list">
+   {var $counter => 0}
+{if isset($directories)}
+   {foreach $directories as $directory}
+   <div class="directory fs-icon-folder">      
+      <a href="{plink $directoryAction, parent => $directory->url}">{$directory->name}</a>      
+   </div>
+   {var $counter => $counter + 1}
+   <div n:if="$counter % $control->columnsCount == 0" class="clearer"></div>
+   {/foreach}
+{/if}
+{if isset($files)}
+   {foreach $files as $file}
+   <div class="file filetype-{$file->filetype_id}">      
+      <a href="{plink $fileAction, id => $file->id}" title="{$file->size|bytes}">{$file->name}</a>      
+   </div>
+   {var $counter => $counter + 1}
+   <div n:if="$counter % $control->columnsCount == 0" class="clearer"></div>
+   {/foreach}
+{/if}
+   <div n:if="$counter % $control->columnsCount != 0" class="clearer"></div>
+</div>
+{/block}

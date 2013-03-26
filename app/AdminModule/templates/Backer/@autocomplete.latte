@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  $(function() {
+	  var availableTags = [
+	     {foreach $autocompleteOptions as $option}
+		   {$option}, 
+	     {/foreach}
+	  ];
+	  $( "input.autocomplete" ).autocomplete({
+		  source: availableTags,
+		  minLength: 2,
+	  });
+  });
+</script>

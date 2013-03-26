@@ -1,0 +1,29 @@
+{block #content}
+
+
+
+{control settingsForm}
+
+<h3>Privátní RSS</h3>
+
+<p>
+   Na adrese privátního feedu jsou vidět i neveřejné aktuality. Tuto adresu si jen
+   zkopírujte do čtečky a nikde ji nezveřejňujte. Pokud by byla kompromitována,
+   zneplatníte ji obnovením tokenu.
+</p>
+
+{snippet}
+{if $RSSnewsToken}
+<p>
+   Adresa feedu:<br>
+
+   <a n:href="//:Public:Rss:private, token => $RSSnewsToken->token">{link //:Public:Rss:private, token => $RSSnewsToken->token}</a>
+</p>
+<a n:href="regenerateRSSnews!" class="ajax">Obnovit token</a>
+
+{else}
+<a n:href="regenerateRSSnews!" class="ajax">Vytvořit odkaz</a>
+</p>
+{/if}
+
+{/snippet}

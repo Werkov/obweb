@@ -1,0 +1,204 @@
+/* Layout */
+
+body{
+    background-color: #fff;
+}
+
+
+#content-container{
+    background: url('../images/layout/body_bg.png');
+    background-color: none;
+    background-repeat: repeat-x;
+    background-position: top left;
+    padding-top: 1px;
+}
+
+#upper-shadow{  
+    background: url('../images/layout/upper_shadow.png');
+    background-repeat: no-repeat;
+    background-position: center 9px;
+    width:1000px;
+    height: 0px;
+    padding:15px 12px 0px 12px;
+    margin:0 auto;
+}
+#central-container{
+    background-image: url('../images/layout/content_bg.png');
+    background-position: top center;
+    background-repeat: repeat-y;
+    width:1000px;
+    padding:0px 12px 0px 12px;
+    margin:0 auto;
+}
+
+
+#content{
+    padding:0px 10px 10px 10px;
+    /*width:440px;*/
+}
+
+#footer-container {
+    background: url('../images/layout/footer_bg.png');
+    background-color: none;
+    background-repeat: no-repeat;
+    background-position: top center;
+}
+
+/* Content */
+.navigation{
+    border-bottom:1px solid #eaeaea;
+    font-size:12px;
+    padding: 0px 10px 1px 10px;
+    margin: -2px -10px 10px -10px;
+}
+.navigation a{
+    text-decoration: none;
+}
+
+.navigation a:hover{
+    text-decoration: underline;
+}
+
+
+
+div.uncles{
+    float:right;
+    width: 250px;
+    text-align: right;
+}
+
+div.uncles ul{
+    list-style-type: none;
+}
+
+div.narrower{
+    width:720px;
+    float:left;
+}
+
+/* Forms */
+/* errors use jQuery-UI */
+form ul.error{
+    border: 1px solid #cc5533;
+    background: #f5e1db url(../images/ui/ui-bg_flat_95_f5e1db_40x100.png) 50% 50% repeat-x;
+    color: #cc5533;
+    margin-left:0px;
+}
+
+form ul.error li{
+    list-style-type: none;
+    padding: 10px;
+}
+
+form table {
+    margin-bottom: 20px;
+}
+form table th {
+    text-align: right;
+    padding-right:20px;
+    width:230px;
+    background-color: transparent;
+}
+form table td {
+    background-color: transparent;
+}
+
+form table td label {
+    margin-left:10px;
+}
+form table th label:after {
+    content:":";
+}
+form table th label {
+    font-weight: normal;
+}
+form table th label.required {
+    font-weight: bold;
+}
+
+form table input, form table select, form table textarea {
+    background-color: #fff;
+    border:1px solid #5b6e78;
+    padding:1px;
+}
+form table input.text, form table select{
+    width: 200px;   
+}
+
+form table input.button {
+    padding:5px 15px 5px 15px;
+    margin-top:20px;
+    border:1px solid #5b6e78;
+    background-color: #eaeaea;
+}
+
+form table.gridito-table input.button {
+    margin-top:0px;
+}
+
+form fieldset {
+    border:1px solid #5b6e78;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+form fieldset legend {
+    padding:0px 10px 0px 10px;
+}
+
+form .active {
+    border:1px solid #000;
+}
+
+table.entity-info th {
+    text-align: right;
+    padding:5px;
+    padding-right:16px;
+    width:230px;
+    vertical-align: top;
+    background-color: transparent;
+    border:1px solid #eee;
+}
+table.entity-info td {
+    padding:4px;
+    vertical-align: top;
+    background-color: transparent;
+    border:1px solid #eee;
+}
+
+div.flash{
+    width: 980px;
+    padding:10px;
+    margin:0 auto;
+    margin-bottom: 5px;
+    margin-top:10px;   
+}
+
+pre {
+    width:100%;
+    overflow: auto;
+    border:1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.sumCell {
+    font-style: italic;
+}
+.sumRow {
+    font-weight: bold;
+}
+.sumRow td {
+    background-color: #fff;
+}
+h3 {
+    margin-bottom: 15px;
+}
+
+.tag-cloud {
+    margin-bottom: 20px;
+}
+.tag-cloud .tag {
+    margin-right: 10px;
+}
+.tag-cloud a.active {
+    font-weight: bold;
+}

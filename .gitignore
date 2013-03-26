@@ -1,0 +1,3 @@
+app/config/*.neon
+www/subdomains
+nbproject

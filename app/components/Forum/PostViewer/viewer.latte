@@ -1,0 +1,53 @@
+{snippet postViewer}
+<div class="thread-list">
+
+{* flash messages *}
+{block flashes}
+   <div n:class="$flash->type === 'error' ? 'ui-state-error' : 'ui-state-highlight', ui-corner-all" n:foreach="$flashes as $flash">
+      <span n:class="ui-icon, $flash->type === 'error' ? 'ui-icon-alert' : 'ui-icon-info'"></span>
+            {$flash->message}
+   </div>
+{/block}
+{if $control->showForm && $control->reactionId == null}
+{control frmNewPost}
+{else}
+   <p>
+   <a n:href="showForm!, id => null" n:class="$control->getPaginator()->getAjaxClass(), reply">Vložit příspěvek</a>
+   </p>
+{/if}
+
+
+   {foreach $posts as $post}
+   <div class="post" id="{$post->id}"{if $control->mode == 0} style="margin-left: {=$post->depth*20}px"{/if}>
+      <div class="info">
+	 {!$post->datetime|timeInWords}
+	 <span class="right"><a href="{plink this#$post->id, id => $post->Thread->url}">#{$post->id}</a></span>
+      </div>
+      {!$post->text}
+      <div class="panel">
+	 {$post->author}
+	 {if !($control->showForm && $control->reactionId == $post->id)}
+	 <span class="right"><a n:href="showForm!, id => $post->id" n:class="$control->getPaginator()->getAjaxClass(), reply">Reagovat</a><br></span>
+         {/if}
+      </div>
+   </div>
+      {if $control->showForm && $control->reactionId == $post->id}
+      {control frmNewPost}
+      {/if}
+
+   {/foreach}
+
+</div>
+<div>
+{control $control->getPaginator()}
+   <div class="right">
+      Zobrazení: 
+      {if $control->mode == 0}
+      <b>strom</b> | <a n:href="toggleView!" n:class="$control->getPaginator()->getAjaxClass()">seznam</a>
+      {else}
+      <a n:href="toggleView!"  n:class="$control->getPaginator()->getAjaxClass()">strom</a> | <b>seznam</b>
+      {/if}
+   </div>
+</div>
+
+{/snippet}

@@ -1,0 +1,62 @@
+#Overrides parent deny from all
+Allow from all
+
+# Apache configuration file (see httpd.apache.org/docs/2.2/mod/quickreference.html)
+
+#Blueboard doesn't accept options directive
+# disable directory listing
+# Options -Indexes
+
+# allows symbolic links in this directory
+# Options +FollowSymLinks
+
+# configure PHP
+# <IfModule mod_php5.c>
+#	php_flag register_globals off
+#	php_flag zend.ze1_compatibility_mode off
+#	php_flag session.auto_start off
+# </IfModule>
+
+# enable cool URL
+#<IfModule mod_rewrite.c>
+	RewriteEngine On
+	#RewriteBase /OOB/dev/src
+
+	# subdomain handling
+        #legacy
+        RewriteRule ^mcr11/(.*) http://mcr11.oobtrebic.cz/$1 [QSA,R=301]
+        
+        RewriteCond %{HTTP_HOST} !^www\.ttr\.local$
+        RewriteCond %{HTTP_HOST} ^([^./]+)\.ttr\.local$
+        RewriteRule !(^subdomains/|^nindex.php$) subdomains/%1%{REQUEST_URI} [L]
+
+        # handle non-existent files by Nette
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule !\.(pdf|js|ico|gif|jpg|png|css|rar|zip|tar\.gz)$ nindex.php [L]
+        # and also root accesses to subdirectories w/out defeault file        
+        RewriteCond %{DOCUMENT_ROOT}/$1index.php !-f
+        RewriteCond %{DOCUMENT_ROOT}/$1index.html !-f
+        RewriteCond %{DOCUMENT_ROOT}/$1index.htm !-f
+        RewriteCond %{DOCUMENT_ROOT}/$1default.htm !-f
+        RewriteCond %{DOCUMENT_ROOT}/$1default.html !-f
+        RewriteRule ^(subdomains/[^/]+/)$ nindex.php [NS]
+        
+        
+#</IfModule>
+
+# default charset should be UTF-8
+AddDefaultCharset utf-8
+
+# enable gzip compression
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css application/x-javascript text/javascript application/javascript application/json
+</IfModule>
+
+# allow combined JavaScript & CSS. Inside of script.combined.js you could use <!--#include file="script.js" -->
+<IfModule mod_include.c>
+	<FilesMatch "\.combined\.(js|css)$">
+		Options +Includes
+		SetOut#putFilter INCLUDES
+	</FilesMatch>
+</IfModule>

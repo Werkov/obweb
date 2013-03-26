@@ -1,0 +1,9 @@
+{block #content}
+
+
+{foreach $categories as $category}
+<h3>{$category->name}</h3>
+<ul>
+   <li n:foreach="$category->Links as $link"><a href="{$link->URL}">{$link->name}</a><span n:if="$link->desc"> {$link->desc}</span></li>
+</ul>
+{/foreach}

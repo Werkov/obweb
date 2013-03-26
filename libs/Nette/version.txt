@@ -1,0 +1,1 @@
+Nette Framework 2.0-beta (revision c4a9fbb released on 2011-12-23)

@@ -1,0 +1,13 @@
+{snippet commentViewer}
+<div class="comment-list">
+   
+   {foreach $comments as $comment}
+   <div class="comment">
+      <div class="info"><span class="author">{$comment->author}</span><span class="right">{!$comment->posted|timeInWords}</span></div>
+      {!$comment->text}
+   </div>
+   {/foreach}
+
+</div>
+{*{control $control->getPaginator()}*}
+{/snippet}

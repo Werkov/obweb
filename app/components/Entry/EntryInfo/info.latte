@@ -1,0 +1,25 @@
+{block profile}
+
+
+<table class="entity-info">
+   <tr><th>Závod:</th><td><a href="{plink :Application:Race:detail, id => $entry->Category->Race->id}">{$entry->Category->Race->name}</a></td></tr>
+   <tr><th>Závodník:</th><td>{if $entry->Racer}{$entry->Racer->getFullname()}{else}{$entry->racerName}{/if}</td></tr>
+   <tr><th>Kategorie:</th><td>{$entry->Category->Category->name}</td></tr>
+   <tr><th>SI:</th><td>{$entry->SINumber}</td></tr>
+   <tr><th>Poznámka:</th><td>{$entry->note}</td></tr>
+   <tr><td colspan="2">&nbsp;</td></tr>
+   {var sum => $entry->Category->price}
+   <tr><th>Startovné:</th><td>{$entry->Category->price|currency}</td></tr>
+   <tr n:if="count($entry->SelectedOptions) > 0"><th>Poplatky:</th>
+      <td>{foreach $entry->SelectedOptions as $selectedOption}
+	 {$selectedOption->AdditionalCost->name}: {$selectedOption->AdditionalCostOption->name} ({$selectedOption->AdditionalCostOption->price|currency})<br>
+	 {var $sum => $sum + $selectedOption->AdditionalCostOption->price}
+	 {/foreach}</td></tr>
+   <tr><th>Placeno z účtu:</th><td>{$entry->Account->name}</td></tr>
+   <tr><th>Celková cena:</th><td><strong>{$sum|currency}</strong></td></tr>
+
+
+
+
+
+</table>

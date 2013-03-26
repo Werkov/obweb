@@ -1,0 +1,28 @@
+{layout "control.latte"}
+
+{*<dl class="calendar">
+		     <dt>18.4.</dt><dd><a href="">3. liga vysočiny</a></dd>
+		     <dt>25.4.</dt><dd><a href="">Uzávěrka 4. ligy vysočiny</a></dd>
+		     <dt>18.6.</dt><dd><a href="">MČR krátká trat</a></dd>
+		  </dl>*}
+{block #content}
+{foreach $periods as $period}
+   {if count($period->items) > 0}
+   <h3>{$period->name}</h3>
+   {var prev => null}
+   {foreach $period->items as $item}
+   <dt n:if="$prev != $item->dtstart">{$item->dtstart->format("j. n. Y")}</dt>
+   <dd><a n:tag-if="$item->url" href="{$item->url}">
+           {if $item->dtstart_tm}
+           {$item->dtstart->format("H.i")}:
+           {/if}
+           <span n:tag-if="$item->location" title="Místo: {$item->location}">{$item->summary}</span>
+       </a></dd>
+   {var prev => $item->dtstart}
+   {/foreach}
+   {/if}
+      
+{/foreach}
+
+
+{/block}

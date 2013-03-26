@@ -1,0 +1,31 @@
+{block #loadJS}
+{include #parent}
+{include ../../../templates/@texyla.latte}
+{/block}
+
+{block #content}
+
+
+
+
+{!$article->perex}
+
+{!$article->text}
+
+<p class="author">{$article->Author->getFullName()}, {$article->published|timeInWords:false}</p>
+
+<p class="tag-cloud" n:if="count($article->Tags) > 0">
+    Štítky:
+    {foreach $article->Tags as $tag}
+    <span class="tag"><a n:href=":Public:Publication:articlesArchive, tag => $tag->url">{$tag->name}</a></span>
+    {/foreach}
+</p>
+
+{if count($article->Comments)> 0}
+    <h3>Komentáře</h3>
+    {control commentViewer}
+{/if}
+
+<h4>Napsat komentář</h4>
+{control frmNewComment}
+

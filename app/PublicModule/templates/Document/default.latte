@@ -1,0 +1,14 @@
+{block #loadCSS}
+<link type="text/css" href="{$baseUri}/css/filetypes.css" rel="stylesheet" />
+<link type="text/css" href="{$baseUri}/css/function-icons.css" rel="stylesheet" />
+{include #parent}
+{/block}
+
+{block #content}
+
+
+<h3>Poslední přidané dokumenty</h3>
+{control fileViewer}
+
+<h2>Procházení dokumentů</h2>
+{control directoryViewer}

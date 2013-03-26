@@ -1,0 +1,34 @@
+{contentType application/rss+xml; charset=utf-8}
+{!='<' . '?xml version="1.0" encoding="utf-8"?>'}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+   <channel>
+      <atom:link href="{$feedURL}" rel="self" type="application/rss+xml" />
+      <title>{$title}</title>
+      <link>{$URL}</link>
+      <description>{$description}</description>
+      <language>{$language}</language>
+      <pubDate>{$date|date:\DateTime::RSS}</pubDate>
+      <lastBuildDate>{$date|date:\DateTime::RSS}</lastBuildDate>{if $editor}
+      <managingEditor>{$editor}</managingEditor>{/if}{if $webmaster}
+      <webMaster>{$webmaster}</webMaster>{/if}
+      {if $image}
+      <image>
+	 <title>{$image->title}</title>
+	 <url>{$image->url}</url>
+	 {!='<link>'}{$image->link}</link>{if $image->width}
+	 <width>{$image->width}</width>{/if}{if $image->width}
+	 <height>{$image->height}<height>{/if}
+      </image>
+      {/if}
+{foreach $items as $item}
+      <item>{if $item->id}
+	 <guid{if $item->isPermalink} isPermaLink="true"{else} isPermaLink="false"{/if}>{$item->id}</guid>{/if}{if $item->name}
+	 <title>{$item->name}</title>{/if}{if $item->url}
+	 {!='<link>'}{$item->url}{!='</link>'}{/if}{if $item->desc}
+	 <description>{$item->desc}</description>{/if}{if $item->datetime}
+	 <pubDate>{$item->datetime|date:\DateTime::RSS}</pubDate>{/if}{if $item->author}
+	 <author>{$item->author}</author>{/if}
+      </item>
+{/foreach}
+   </channel>
+</rss>

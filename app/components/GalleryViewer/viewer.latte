@@ -1,0 +1,14 @@
+{block galleryViewer}
+<div class="gallery-list">
+   {foreach $galleries as $gallery}
+   {var thumb = $gallery->Photos->fetch()}
+   <div class="gallery" n:if="$thumb">
+      <h3>{$gallery->name}</h3>
+      <a href="{plink :Public:Gallery:gallery, parent => $gallery->url}"><img src="{=$baseUri}/{=$path . '/'. $thumb->file|thumb:180}" alt="{$gallery->name}"></a>
+      {*<p n:if="$gallery->desc">{$gallery->desc}</p>*}
+   </div>
+   <div n:if="$iterator->getCounter() % $control->columnsCount == 0" class="clearer"></div>
+   {/foreach}
+   <div n:if="count($galleries) % $control->columnsCount != 0" class="clearer"></div>
+</div>
+{/block}

@@ -1,0 +1,7 @@
+parameters:
+    club:
+        fullName: Plný název klubu
+        shortName: Krátký název
+        code: ZKRATKA
+        mail: johndoe@example.org
+        feedMail: feed@example.org

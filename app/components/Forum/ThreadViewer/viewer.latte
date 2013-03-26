@@ -1,0 +1,18 @@
+{snippet threadViewer}
+<div class="forum-list">
+   <table>
+      <tr><th>Vlákno</th><th class="last">Poslední příspěvek</th></tr>
+   {foreach $threads as $thread}
+      <tr><td>
+      <h4><a href="{plink :Public:Forum:thread, $thread->url}">{$thread->name}</a></h4>
+      </td>
+      <td>
+{if $thread->datetime}{!$thread->datetime|timeInWords}&nbsp;od&nbsp;{$thread->author}<br>{/if}
+
+      </td>
+      </tr>
+   {/foreach}
+   </table>
+</div>
+{control $control->getPaginator()}
+{/snippet}

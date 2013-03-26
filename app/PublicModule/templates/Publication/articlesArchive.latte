@@ -1,0 +1,14 @@
+{block #content}
+
+    {snippet}
+<p class="tag-cloud">
+    Štítek:
+    <a n:href="this" n:class="tag, ajax, !$currentTag ? active">(jakýkoli)</a>
+    {foreach $tags as $tag}
+    <span class="tag"><a n:href="this, tag => $tag->url" n:class="ajax, ($currentTag && $currentTag->id == $tag->id) ? active">{$tag->name}</a>&nbsp;({$tag->frequency})</span>
+    {/foreach}
+</p>
+
+{control articleViewer}
+
+{/snippet}

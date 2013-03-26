@@ -1,0 +1,11 @@
+1.1
+=====
+
+Updated for ability to minify new Nette 0.9.x series
+where is no "require" lines in files longer.
+
+
+1.0
+=====
+
+Initial version

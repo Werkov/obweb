@@ -1,0 +1,18 @@
+{layout "../../../templates/@layout.latte"}
+
+{block #loadJS}
+{include #parent}
+{include "../../../templates/@gridito.latte"}
+{/block}
+
+{block #content}
+
+{if $account}
+<p>
+   Evidovaný zůstatek na účtě {$account->name} je <strong>{$account->balance|currency}</strong>.
+</p>
+{control grdHistory}
+
+{else}
+Nejste přiřazen(a) k žádnému účtu.
+{/if}

@@ -1,0 +1,26 @@
+{layout "control.latte"}
+
+{block #content}
+<script type="text/javascript">
+$(document).ready(function(){
+   var control = $("#" + {$control->name} + "-noajax");
+   
+   var offset = control.offset();
+   var w = control.width();
+   var h = control.height();
+   $("#" + {$control->name} + "-noajax").hide();
+   $.get($("#" + {$control->name} + "-loader").attr("href"));
+   
+   
+   $("#ajax-spinner").show().css({
+      position: "absolute",
+      left: offset.left + w /2,// + 20,
+      top: offset.top + h/2// + 40
+   });
+});
+</script>
+
+<div id="{$control->name}-noajax">
+   <a n:href="load! isLoaded => 1" n:class="$control->getAjaxClass()" id="{$control->name}-loader">Načíst</a> kalendář.
+</div>
+{/block}

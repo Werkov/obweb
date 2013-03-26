@@ -1,0 +1,48 @@
+<div class="newsfeed">
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.feed-item').click(function(){
+        var link = $(this).find('a.more');
+        if(link[0] != undefined) window.location.href = link[0].href;
+    });
+    var locked = false;
+    $(window).scroll(function(){
+        if ($(document).height() - $(window).height() - $(window).scrollTop() <= 200){
+            if(!locked){
+                $('#' + {$control->name} +'-more').click();
+                locked = true;
+            }
+            //$('#' + {$control->name} +'-more').hide();
+        }
+    }); 
+    $('#' + {$control->name} +'-more').live('click', function(event){
+        event.preventDefault(),
+        $.ajax({
+            url: this.href,            
+            success: function(payload){
+                // redirect
+                if (payload.redirect) {
+                    window.location.href = payload.redirect;
+                    return;
+                }
+
+                // snippets
+                if (payload.snippets) {
+                    for (var id in payload.snippets) {
+                        if(id == 'snippet-' + {$control->name} + '-items'){
+                            var more = $('<div/>');
+                            more.append($(payload.snippets[id]));
+                            more.hide().appendTo($('#' + id)).slideDown(2000);
+                            locked = false;
+                        }else{
+                            $('#' + id).html(payload.snippets[id]);
+                        }                        
+                    }
+                }
+            }
+        });
+        });
+});
+</script>
+   {include #content}
+</div>

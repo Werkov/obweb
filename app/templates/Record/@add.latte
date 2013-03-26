@@ -1,0 +1,17 @@
+{layout "../@layout.latte"}
+
+{block #loadJS}
+{include #parent}
+{include ../@datepicker.latte}
+{include ../@texyla.latte}
+{/block}
+
+{block #content}
+
+{*{block #header}
+<h1>Přidat</h1>
+{/block}*}
+
+{block #form}
+Formulář
+{/block}

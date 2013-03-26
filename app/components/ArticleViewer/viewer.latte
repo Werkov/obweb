@@ -1,0 +1,14 @@
+{snippet articleViewer}
+<ul n:if="count($articles)>0">   
+   {foreach $articles as $article}
+    <li>
+    <a href="{plink :Public:Publication:articleDetail, id => $article->url}">{$article->title}</a>
+    ({!$article->published|timeInWords})
+    </li>
+   {/foreach}
+</ul>
+<p n:if="count($articles) == 0">   
+    Žádné články.
+</p>
+{control $control->getPaginator()}
+{/snippet}

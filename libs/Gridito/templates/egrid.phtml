@@ -1,0 +1,119 @@
+{snippet}
+<div class="gridito">
+    {if isset($windowOutput)}
+
+        {* window (non javascript fallback) *}
+        {block window}
+        <h2>{$windowLabel}</h2>
+        {!$windowOutput}
+        {/block}
+
+    {else}
+
+        {block grid}
+
+        {* flash messages *}
+        {block flashes}
+        <div n:class="gridito-flash, $flash->type === 'error' ? 'ui-state-error' : 'ui-state-highlight', ui-corner-all" n:foreach="$flashes as $flash">
+            <span n:class="ui-icon, $flash->type === 'error' ? 'ui-icon-alert' : 'ui-icon-info'"></span>
+            {$flash->message}
+        </div>
+        {/block}
+
+        {* top toolbar *}
+        {block toptoolbar}
+        <div class="gridito-toolbar" n:if="$control->hasToolbar() || $control->showAdd()">
+	   {foreach $control['toolbar']->getComponents() as $button}
+	    {control $button}
+	   {/foreach}
+            
+           <a n:href="add!"  n:if="$control->showAdd()" n:class="$control->getAjaxClass(), fg-button, ui-state-default, fg-button-icon-left" title="Přidat"><span class="ui-icon ui-icon-document"></span>Přidat</a>
+           <div class="clearer"></div>
+        </div>
+        {/block}
+
+        {* table or empty message *}
+        {block data}
+
+        {if $control->getModel()->count() > 0 || $control->showForm}
+
+            {* grid table *}
+            {block table}
+	{if $control->showForm}
+	<script type="text/javascript">	
+	 $(function(){
+	    $("[name="+{$control->getFirstField()}+"]").focus();
+	    $("[name="+{$control->getFirstField()}+"]").select();
+	 });
+	 </script>
+	    {$control["gridForm"]->render('begin')}
+	{/if}
+            <table class="gridito-table ui-widget ui-widget-content">
+                <thead>
+                    <tr>
+                        {block tableheader}
+                        <th n:foreach="$control['columns']->getComponents() as $column" class="ui-widget-header">
+                            {block tableheadercontent}
+                            <span class="gridito-sorting" n:if="$column->isSortable()">
+                                <a n:if="$column->getSorting() === null" n:href="sort!, $column->getName(), asc" n:class="$control->getAjaxClass()" rel="nofollow"><span class="ui-icon ui-icon-carat-2-n-s"></span></a>
+                                <a n:if="$column->sorting === 'asc'" n:href="sort!, $column->getName(), desc" n:class="$control->getAjaxClass()" rel="nofollow"><span class="ui-icon ui-icon-triangle-1-n"></span></a>
+                                <a n:if="$column->sorting === 'desc'" n:href="sort!, null, null" n:class="$control->getAjaxClass()" rel="nofollow"><span class="ui-icon ui-icon-triangle-1-s"></span></a>
+                            </span>
+                            {$column->getLabel()}
+                            {/block}
+                        </th>
+                        <th n:if="$control->hasActions()" class="ui-widget-header"></th>
+			<th n:if="$control->showEdit() || $control->showForm" class="ui-widget-header"></th>
+                        {/block}
+                    </tr>
+                </thead>
+                <tbody>
+                    {block tablebody}
+		     {if $control->editId == -1 && $control->showForm == 1}
+		     <tr>
+		     <td n:class="gridito-cell, $column->getCellClass($iterator, item), $control->getHighlightOrderedColumn() && $column->getSorting() ? ui-state-highlight" n:foreach="$control['columns']->getComponents() as $column">
+                            {control $column:cell null}
+                        </td>
+			<td class="gridito-actioncell" n:if="$control->hasActions()" n:inner-foreach="$control['actions']->getComponents() as $button">
+                            &nbsp;
+                        </td>
+
+			<td>{$control["gridForm"]["save"]->control} {$control["gridForm"]["cancel"]->control}</td>
+		     </tr>
+		     {/if}
+                    
+                    <tr n:foreach="$control->getModel() as $item" n:class="$control->getRowClass($iterator, $item)">		       
+		        <td n:class="gridito-cell, $column->getCellClass($iterator, item), $control->getHighlightOrderedColumn() && $column->getSorting() ? ui-state-highlight" n:foreach="$control['columns']->getComponents() as $column">
+                            {control $column:cell $item}
+                        </td>
+			<td class="gridito-actioncell" n:if="$control->hasActions()" n:inner-foreach="$control['actions']->getComponents() as $button">
+                            {control $button $item}
+                        </td>
+		     {if $control->getModel()->getUniqueId($item) == $control->editId}
+			<td class="gridito-actioncell">{$control["gridForm"]["save"]->control} {$control["gridForm"]["cancel"]->control}</td>
+		     {else}
+                        <td class="gridito-actioncell" n:if="$control->showEdit()"><a n:href="edit!, $control->getModel()->getUniqueId($item)" n:class="$control->getAjaxClass(), fg-button, ui-state-default, fg-button-icon-solo" title="Edit"><span class="ui-icon ui-icon-pencil"></span>Edit</a></td>
+		     {/if}
+			
+                    </tr>
+                    {/block}
+                </tbody>
+            </table>
+	{if $control->showForm}
+	    {$control["gridForm"]->render('end')}
+	{/if}
+	    
+            {/block}
+
+        {else}
+            {block emptyResult}{/block}
+        {/if}
+
+        {/block}
+
+       	{control $control->getPaginator()}
+
+        {/block}
+    {/if}
+</div>
+{/snippet}

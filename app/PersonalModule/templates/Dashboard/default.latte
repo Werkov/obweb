@@ -1,0 +1,11 @@
+{block #loadCSS}
+<link type="text/css" href="{$baseUri}/css/function-icons.css" rel="stylesheet">
+{include #parent}
+{/block}
+
+{block #content}
+{snippet}
+{control controlPanel}
+
+<p><a n:href="clean!" class="ajax">Vyčistit historii</a></p>
+{/snippet}

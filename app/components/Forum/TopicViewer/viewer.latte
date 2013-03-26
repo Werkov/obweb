@@ -1,0 +1,21 @@
+{block topicViewer}
+<div class="forum-list">
+   <table>
+      <tr><th>Téma</th><th class="last">Poslední příspěvek</th></tr>
+   {foreach $topics as $topic}
+      <tr><td>
+      <h3><a href="{plink :Public:Forum:topic, $topic->url}">{$topic->name}</a></h3>
+      <p>{$topic->desc}</p>
+      </td>
+      <td>
+	 {if $topic->datetime}
+	    {!$topic->datetime|timeInWords}&nbsp;od&nbsp;{$topic->author}<br>
+	    v&nbsp;<a href="{plink :Public:Forum:thread, $topic->thread_url}">{$topic->thread}</a>
+	 {/if}
+      </td>
+      </tr>
+
+   {/foreach}
+   </table>
+</div>
+{/block}

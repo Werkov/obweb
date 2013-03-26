@@ -1,0 +1,51 @@
+{layout "../../../templates/@layout.latte"}
+
+
+{block #content}
+
+
+
+<table class="entity-info">
+   <tr><th>Název:</th><td>{$race->name}</td></tr>
+{if $race->end}
+   <tr><th>Začátek:</th><td>{!$race->begin|mydate:false}</td></tr>
+   <tr><th>Konec:</th><td>{!$race->end|mydate:false}</td></tr>
+{else}
+   <tr><th>Datum:</th><td>{!$race->begin|mydate:false}</td></tr>
+{/if}
+   <tr><th>Druh závodu:</th><td>{$race->type}</td></tr>
+   <tr><th>Místo konání:</th><td>{$race->place}</td></tr>
+   <tr><th>Pořadatel:</th><td>{$race->organizer}</td></tr>
+   <tr><th>Čas startu 00:</th><td>{$race->start}</td></tr>
+   <tr><th>Příznak:</th><td>{$race->Tag->name}</td></tr>
+   <tr><th>Uzávěrka přihlášek:</th><td>{!$race->deadline|timeInWords:true}</td></tr>
+   <tr n:if="$race->web"><th>WWW stránky:</th><td><a href="{$race->web}">{$race->web}</a></td></tr>
+   <tr><th>Stav:</th><td>{!$race->status|iconRaceStatus}</td></tr>
+   <tr><th>Přihlašuje:</th><td>{$race->Manager->getFullname(false)}</td></tr>
+   <tr><th>Vypsané kategorie:</th><td>
+      {foreach $race->Categories as $rc}
+      {$rc->Category->name}{if !$iterator->isLast()}, {/if}
+      {/foreach}
+      </td></tr>
+   <tr n:if="$race->note"><th>Poznámka:</th><td>{$race->note}</td></tr>
+   <tr n:if="$user->isLoggedIn() && count($costs) > 0"><th style="vertical-align:top">Poplatky:</th><td>
+	 {foreach $costs as $cost}
+	 <p>
+	    {var $cost => array_values($cost)}
+	    {$cost[0]->cname}:<br>
+	    {foreach $cost as $option}
+	    {$option->oname} ({$option->price|currency}){if !$iterator->isLast()}, {/if}
+	    {/foreach}
+	 </p>
+	 {/foreach}
+   </td></tr>
+
+   <tr n:if="$user->isLoggedIn()"><th>Startovné:</th><td>
+      {foreach $race->Categories as $rc}
+      {$rc->Category->name} ({$rc->price|currency}){if !$iterator->isLast()}, {/if}
+      {/foreach}
+      </td></tr>
+</table>
+<p n:if="$user->isLoggedIn()">
+   <a n:href=":Application:Entry:plist, parent => $race->id">Přihlášky</a>
+</p>

@@ -1,0 +1,29 @@
+{layout "control.latte"}
+
+{block #content}
+{snippet items}
+{foreach $items as $item}
+<div n:class="feed-item, $item->sourceInfo->remote ? remote">
+   <strong class="title">{if $item->url}<a href="{$item->url}">{/if}{$item->name}{if $item->url}</a>{/if}</strong>   
+   <span n:if="$item->author" class="author">{$item->parseAuthor()}</span>
+   <div class="clearer"></div>
+   <p n:if="$item->desc" class="main">
+	 {!$item->desc}
+   </p>   
+   <span class="annotation">
+       {*<span n:if="$item->author && $item->sourceInfo->name" class="at-sign">@</span>*}
+       <span n:if="$item->sourceInfo->name" n:class="source, $item->sourceInfo->remote ? remote">{if $item->sourceInfo->URL}<a href="{$item->sourceInfo->URL}">{/if}{$item->sourceInfo->name}{if $item->sourceInfo->URL}</a>{/if}</span>
+   </span>
+   <span class="right"><em class="date">{!$item->datetime|timeInWords}</em>{if $item->url}&nbsp;<a href="{$item->url}" class="more">více</a>{/if}</span>
+   <div class="clearer"></div>
+</div>
+{/foreach}
+{/snippet}
+
+{snippet paginator}
+<div class="paginator" n:if="$control->getShowPaginator()">
+   <a n:href="changePage! page => $control->page + 1" n:if="count($items) == $itemsPerPage" n:class="button" id="{$control->name}-more" rel="nofollow">Starší »</a>
+</div>
+{/snippet}
+{/block}
+

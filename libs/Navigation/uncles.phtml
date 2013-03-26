@@ -1,0 +1,5 @@
+<ul>
+{foreach $uncles as $node}
+	<li n:if="$node->isVisible()"><a href="{$node->link}" n:tag-if="$node->link != ''">{$node->text}</a></li>
+{/foreach}
+</ul>

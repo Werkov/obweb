@@ -1,0 +1,165 @@
+parameters:
+    feeds:
+        articleSupply: 200
+        newsSupply: 200
+        gallerySupply: 200
+        photoSupply: 200
+        documentSupply: 200
+        orgNewsSupply: 200
+        forumSupply: 200
+        commentSupply: 200
+        RSSLimit: 20 # maximum number of items in exported RSS
+
+factories:
+    newsReader:
+        parameters: [parent, name]
+        class: \Feedutils\NewsReader(%parent%, %name%, @homepageAggregator)
+        setup:
+            - setLazyLoad(false)
+    raceNewsReader:
+        parameters: [parent, name]
+        class: \Feedutils\NewsReader(%parent%, %name%, @raceRemoteAggregator)
+        setup:
+            - setShowPaginator(false)
+            - setItemsPerPage(3)
+    remoteNewsReader:
+        parameters: [parent, name]
+        class: \Feedutils\NewsReader(%parent%, %name%, @homepageRemoteAggregator)
+        setup:
+            - setShowPaginator(false)
+            - setItemsPerPage(5)
+    calendarReader:
+        parameters: [parent, name]
+        class: \Feedutils\CalendarReader(%parent%, %name%, @calendarAggregator)
+        setup:
+            - setLazyLoad(false)
+    mainRssGenerator:
+        parameters: [parent, name, url]
+        class: \Feedutils\RssGenerator(%parent%, %name%, @rssMainAggregator, %club.shortName% – novinky, %url%, Aktuální dění v %club.shortName%. Nejen pro členy.)
+        setup:
+            - setItemsCount(%feeds.RSSLimit%)
+    forumRssGenerator:
+        parameters: [parent, name, url]
+        class: \Feedutils\RssGenerator(%parent%, %name%, @rssForumAggregator, %club.shortName% – fórum, %url%, Poslední příspěvky z fóra.)
+        setup:
+            - setItemsCount(%feeds.RSSLimit%)
+    privateRssGenerator:
+        parameters: [parent, name, url]
+        class: \Feedutils\RssGenerator(%parent%, %name%, @rssPrivateAggregator, %club.shortName% – privátní novinky, %url%, Aktuální dění v %club.shortName%. Jen pro členy.)
+        setup:
+            - setItemsCount(%feeds.RSSLimit%)
+    orgRssGenerator:
+        parameters: [parent, name, url, event]
+        class: \OrganizationModule\RSSGenerator(%parent%, %name%, @rssOrgAggregator(%event%), %url%, %event%)
+        setup:
+            - setItemsCount(%feeds.RSSLimit%)
+    mainIcalGenerator:
+        parameters: [parent, name, url]
+        class: \Feedutils\iCalGenerator(%parent%, %name%, @calendarAggregator, %club.shortName% – kalendář, %url%, Kalendář událostí souvisejících s %club.shortName%.)
+        setup:
+            - setItemsCount(0)
+
+    rssOrgAggregator:
+        parameters: [event]
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@orgNewsFeed(%event%))
+    orgNewsFeed:
+        parameters: [event]
+        factory: \Feed\LocalNewsFactory::createOrgNewsFeed(%event%, %feeds.orgNewsSupply%)
+            
+    orgRssReader:
+        parameters: [parent, name, event]
+        class: \Feedutils\NewsReader(%parent%, %name%, @rssOrgAggregator(%event%))
+        setup:
+            - setLazyLoad(false)
+
+        
+services:
+# Aggegator definitions
+    homepageAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@newsFeed)
+            - addProvider(@articleFeed)
+            - addProvider(@photoFeed)
+            - addProvider(@documentFeed)
+    homepageRemoteAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@csobFeed)
+    raceRemoteAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@raceFeed)
+    calendarAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@raceFeed)
+            - addProvider(@deadlineFeed)
+            - addProvider(@organizedFeed)
+            - addProvider(@eventFeed)
+    rssMainAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@newsFeed)
+            - addProvider(@articleFeed)
+            - addProvider(@photoFeed)
+            - addProvider(@documentFeed)
+    rssForumAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@forumFeed)
+    rssPrivateAggregator:
+        class: \FeedUtils\SimpleFeedAggregator
+        setup:
+            - addProvider(@newsFeed)
+            - addProvider(@articleFeedP)
+            - addProvider(@photoFeedP)
+            - addProvider(@documentFeedP)
+            - addProvider(@forumFeedP)
+            - addProvider(@commentFeedP)
+
+#
+# Feed definitions
+
+# local news
+    newsFeed:
+        factory: \Feed\LocalNewsFactory::createNewsFeed(%feeds.newsSupply%)
+    articleFeed:
+        factory: \Feed\LocalNewsFactory::createArticleFeed(@user::isLoggedIn(), %feeds.articleSupply%)
+    photoFeed:
+        factory: \Feed\LocalNewsFactory::createPhotoFeed(@user::isLoggedIn(), %feeds.photoSupply%)
+    documentFeed:
+        factory: \Feed\LocalNewsFactory::createDocumentFeed(@user::isLoggedIn(), %feeds.documentSupply%)
+    forumFeed:
+        factory: \Feed\LocalNewsFactory::createForumFeed(@user::isLoggedIn(), %feeds.forumSupply%)
+    commentFeed:
+        factory: \Feed\LocalNewsFactory::createCommentFeed(@user::isLoggedIn(), %feeds.commentSupply%)
+    articleFeedP:
+        factory: \Feed\LocalNewsFactory::createArticleFeed(true, %feeds.articleSupply%)
+    photoFeedP:
+        factory: \Feed\LocalNewsFactory::createPhotoFeed(true, %feeds.photoSupply%)
+    documentFeedP:
+        factory: \Feed\LocalNewsFactory::createDocumentFeed(true, %feeds.documentSupply%)
+    forumFeedP:
+        factory: \Feed\LocalNewsFactory::createForumFeed(true, %feeds.forumSupply%)
+    commentFeedP:
+        factory: \Feed\LocalNewsFactory::createCommentFeed(true, %feeds.commentSupply%)
+
+# remote news
+    csobFeed:
+        class: \FeedUtils\RemoteRSSFeed(http://www.orientacnibeh.cz/rss_novinky.php)
+        setup:
+            - setExpiration(300)
+ 
+# local calendars
+    raceFeed:
+        factory: \Feed\LocalCalendarFactory::createRaceFeed
+    deadlineFeed:
+        factory: \Feed\LocalCalendarFactory::createDeadlineFeed
+    organizedFeed:
+        factory: \Feed\LocalCalendarFactory::createOrganizedFeed    
+    eventFeed:
+        factory: \Feed\LocalCalendarFactory::createEventFeed    
+

@@ -1,0 +1,13 @@
+<ul class="menu">
+{foreach $root->getChildren() as $menu}
+	{block #menu}
+	<li n:if="$menu->isVisible()"><a href="{$menu->link}" n:tag-if="$menu->link != ''">{$menu->text}</a>
+		<ul n:if="count($menu->getChildren()) > 0">
+			 {foreach $menu->getChildren() as $item}
+				{include #menu, menu => $item}
+			 {/foreach}
+		</ul>
+	 </li>
+	 {/block}
+{/foreach}
+</ul>

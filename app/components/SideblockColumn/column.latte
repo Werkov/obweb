@@ -1,0 +1,6 @@
+{foreach $sideblocks as $sideblock}
+<div class="col-block">
+    <h2 n:if="$sideblock->name">{$sideblock->name}</h2>
+    {!$sideblock->content}
+</div>
+{/foreach}

@@ -1,0 +1,30 @@
+{layout "@layout.latte"}
+
+{block #layoutCSS}
+<link type="text/css" href="{$baseUri}/css/home.css" rel="stylesheet">
+{/block}
+
+{block #centralPart}
+<div id="content-container">
+    <div id="central-container">
+        <div id="left-col">
+            {cache expire => '+1 day', tags => [con_sideblock, app_race, org_event, publication_event]}{control sideblockColumn 'left'}{/cache}
+        </div>
+        <div id="content">{include #content}</div>
+        <div id="right-col">
+	 {snippet flashMessages}
+	 {foreach $flashes as $flash}	    
+            <div n:class="flash, $flash->type === 'error' ? 'ui-state-error' : 'ui-state-highlight', ui-corner-all">
+                <span n:class="left, ui-icon, $flash->type === 'error' ? 'ui-icon-alert' : 'ui-icon-info'"></span>
+	       {$flash->message}
+            </div>
+	 {/foreach}
+	 {/snippet}
+         {cache expire => '+1 day', tags => [con_sideblock, app_race, org_event, publication_event]}{control sideblockColumn 'right'}{/cache}
+        </div>
+
+        <div class="clearer"></div>
+    </div>
+</div>
+{/block}
+

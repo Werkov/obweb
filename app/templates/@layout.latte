@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+      {if $control->getPresenter()->name == 'Public:Homepage'}
+        <title>{$sitetitle}</title>
+      {else}
+        <title>{block #title}{control navigation:title} | {$sitetitle}{/block}</title>
+      {/if}
+
+        <!-- general support JS -->
+	{block #loadJS}
+        <script type="text/javascript" src="{$baseUri}/js/jquery.js"></script>
+        <script type="text/javascript" src="{$baseUri}/js/jquery.livequery.js"></script>
+        <script type="text/javascript" src="{$baseUri}/js/jquery.nette.js"></script>
+        <script type="text/javascript" src="{$baseUri}/js/jquery.ui.min.js"></script>
+        <script type="text/javascript" src="{$baseUri}/js/jquery.timeago.js"></script>
+
+        <script type="text/javascript" src="{$baseUri}/js/netteForms.js"></script>
+	{/block}
+
+	{block #loadCSS}
+        <link type="text/css" href="{$baseUri}/css/common.css" rel="stylesheet">
+        <link type="text/css" href="{$baseUri}/css/jquery-ui.css" rel="stylesheet">
+	{/block}
+      {block #layoutCSS}
+        <link type="text/css" href="{$baseUri}/css/layout.css" rel="stylesheet">
+	{/block}
+        <script type="text/javascript">
+           $(function(){
+              $("form table input, form table select, form table textarea").focus(function(){
+                 $(this).addClass("active");});
+              $("form table input, form table select, form table textarea").blur(function(){
+                 $(this).removeClass("active");});
+             
+              $("span.timeago").livequery(function(){ $(this).timeago(); });
+             
+           });
+        </script>
+
+        <link rel="alternate" type="application/rss+xml" title="Aktuality" href="{link //:Public:Rss:default}">
+        <link rel="alternate" type="application/rss+xml" title="Diskuzní fórum" href="{link //:Public:Rss:forum}">
+
+
+    </head>
+    <body>
+
+        <div id="header-cont">
+            <div id="header">
+                <a n:href=":Public:Homepage:default" id="logo"><img src="{$baseUri}/images/layout/logo.png" alt="Logo {$sitetitle}" width="78" height="100"></a>
+                <a n:href=":Public:Homepage:default" id="sitename"><h1>{$sitename}</h1></a>
+	    {if $user->isLoggedIn()}
+                <p class="auth">Přihlášen{if $user->getIdentity()->sex == 'F'}a{/if} <b>{$user->getIdentity()->getFullname()}</b> <a href="{link :Public:Authentication:logout}">Odhlásit se</a></p>
+	    {else}
+                <p class="auth">Pro členy: <a href="{link :Public:Authentication:login}">Přihlásit se</a></p>
+	    {/if}
+
+            </div>
+            <div id="menu">
+	    {control navigation:menu}
+            </div>
+        </div>
+
+
+{block #centralPart}
+        <div id="content-container">
+	 {snippet flashMessages}
+	    {foreach $flashes as $flash}	    
+            <div n:class="flash, $flash->type === 'error' ? 'ui-state-error' : 'ui-state-highlight', ui-corner-all">
+                <span n:class="left, ui-icon, $flash->type === 'error' ? 'ui-icon-alert' : 'ui-icon-info'"></span>
+	       {$flash->message}
+            </div>
+	    {/foreach}
+	 {/snippet}
+
+            <div id="upper-shadow"></div>
+
+            <div id="central-container">   
+                <div id="content">
+	       {control navigation:path}
+                    <div class="uncles">
+	       {control navigation:uncles}
+                    </div>
+                    <div class="narrower">	       
+                        <h1>{control navigation:title " – "}</h1>
+	       {include #content}
+                    </div>
+
+                    <div class="clearer"></div>
+                </div>
+
+            </div>
+        </div>
+{/block}
+        <div id="footer-container">
+            <div id="footer">
+
+                <ul class="export">
+                    <li><a n:href=":Public:rss:default" class="rss">RSS export</a></li>
+                    <li><a n:href=":Public:calendar:default" class="cal">Kalendář</a></li>
+                </ul>
+
+                <ul class="links">
+                    <li><a href="http://www.orientacnibeh.cz/">Český svaz orientačního běhu</a></li>
+                </ul>
+
+                <p class="license">&copy; 2011 Oddíl orientačního běhu Třebíč<br>
+                    Vytvořil Michal Koutný
+                </p>
+
+
+
+            </div>
+        </div>
+
+
+
+{*{control navigation:menu}
+
+{control navigation:path}
+
+{snippet flashMessages}
+   {foreach $flashes as $flash}<div class="flash {$flash->type}">{$flash->message}</div>{/foreach}
+{/snippet}*}
+
+
+    </body>
+</html>

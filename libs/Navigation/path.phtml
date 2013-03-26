@@ -1,0 +1,9 @@
+<div class="navigation">
+{foreach $path as $node}
+	{if $iterator->isLast()}
+		<a href="{$node->link}" n:tag-if="$node->link != ''">{$node->text}</a>
+	{else}
+		<a href="{$node->link}" n:tag-if="$node->link != ''">{$node->text}</a>{$delimiter}
+	{/if}
+{/foreach}
+</div>

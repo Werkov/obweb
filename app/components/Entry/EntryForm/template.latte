@@ -1,0 +1,83 @@
+<script type="text/javascript">
+$(function(){
+
+   $("input.toggle").click(function(){
+      if($(this).attr('checked')){
+         $('select.toggleOff').attr('disabled', true);
+         $('input.toggleOn').attr('disabled', false);
+      }else{
+         $('select.toggleOff').attr('disabled', false);
+         $('input.toggleOn').attr('disabled', true);
+      }
+   });
+   if($("input.toggle").attr('checked')){
+         $('select.toggleOff').attr('disabled', true);
+         $('input.toggleOn').attr('disabled', false);
+      }else{
+         $('select.toggleOff').attr('disabled', false);
+         $('input.toggleOn').attr('disabled', true);
+      }
+  
+
+   var priceCategories = {$priceCategories};
+   var priceCosts = {$priceCosts};
+   var defCategories = {$defCategories};
+   var defSI = {$defSI};
+   {if $accountSelection}var defAccount = {$defAccount};{/if}
+   var costNames = {$costList};
+
+   var changed = false;
+
+   var calculate = function(){      
+      var sum = priceCategories[$('#' + {$selCategory}).val()];
+      for(var i in costNames){
+         sum += priceCosts[$('[name="' + costNames[i] + '"]:checked').val()];
+      }
+      if(String(sum) == "NaN" || String(sum) == "undefined")
+         $('#' + {$txtPrice}).val("---");
+      else
+         $('#' + {$txtPrice}).val(sum + " Kč");
+   };
+
+   $('#' + {$selRacer}).change(function(){
+      if($(this).val() == "")
+         return;
+      if(changed
+         && ($('#' + {$txtSI}).val() != ""
+            || $('#' + {$selCategory}).val() != ""
+            {if $accountSelection}|| $('#' + {$selAccount}).val() != ""{/if} )){
+         if(!confirm("Přejete si doplnit data podle uživatele?"))
+            return;
+         }
+      $('#' + {$txtSI}).val(defSI[$(this).val()] == undefined ? "" : defSI[$(this).val()]);
+      $('#' + {$selCategory}).val(defCategories[$(this).val()] == undefined ? "" : defCategories[$(this).val()]);
+      {if $accountSelection}$('#' + {$selAccount}).val(defAccount[$(this).val()] == undefined ? "" : defAccount[$(this).val()]);{/if}
+      changed = false;
+   });
+   
+   $('#' + {$txtSI}).change(function(){
+      changed = true;
+   });
+
+   $('#' + {$selCategory}).change(function(){
+      changed = true;
+      calculate();
+   });
+   {if $accountSelection}
+   $('#' + {$selAccount}).change(function(){
+      changed = true;
+   });
+   {/if}
+
+   for(var i in costNames){
+       $('[name="' + costNames[i] + '"]').change(calculate);
+   }
+
+   calculate();
+
+
+});
+
+</script>
+
+{!$form}

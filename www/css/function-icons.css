@@ -1,0 +1,351 @@
+.fs-icon-accepted {
+    background: url('../images/ui/set/accepted.png') center top no-repeat;
+}
+.fs-icon-add {
+    background: url('../images/ui/set/add.png') center top no-repeat;
+}
+.fs-icon-app {
+    background: url('../images/ui/set/app.png') center top no-repeat;
+}
+.fs-icon-arrow-down-green {
+    background: url('../images/ui/set/arrow_down_green.png') center top no-repeat;
+}
+.fs-icon-arrow-down {
+    background: url('../images/ui/set/arrow_down.png') center top no-repeat;
+}
+.fs-icon-arrow-left-green {
+    background: url('../images/ui/set/arrow_left_green.png') center top no-repeat;
+}
+.fs-icon-arrow-left {
+    background: url('../images/ui/set/arrow_left.png') center top no-repeat;
+}
+.fs-icon-arrow-right-green {
+    background: url('../images/ui/set/arrow_right_green.png') center top no-repeat;
+}
+.fs-icon-arrow-right {
+    background: url('../images/ui/set/arrow_right.png') center top no-repeat;
+}
+.fs-icon-arrow-up-green {
+    background: url('../images/ui/set/arrow_up_green.png') center top no-repeat;
+}
+.fs-icon-arrow-up {
+    background: url('../images/ui/set/arrow_up.png') center top no-repeat;
+}
+.fs-icon-beer {
+    background: url('../images/ui/set/beer.png') center top no-repeat;
+}
+.fs-icon-blinklist {
+    background: url('../images/ui/set/blinklist.png') center top no-repeat;
+}
+.fs-icon-blue-speech-bubble {
+    background: url('../images/ui/set/blue_speech_bubble.png') center top no-repeat;
+}
+.fs-icon-book {
+    background: url('../images/ui/set/book.png') center top no-repeat;
+}
+.fs-icon-box-download {
+    background: url('../images/ui/set/box_download.png') center top no-repeat;
+}
+.fs-icon-box {
+    background: url('../images/ui/set/box.png') center top no-repeat;
+}
+.fs-icon-box-upload {
+    background: url('../images/ui/set/box_upload.png') center top no-repeat;
+}
+.fs-icon-camera-add {
+    background: url('../images/ui/set/camera_add.png') center top no-repeat;
+}
+.fs-icon-camera-delete {
+    background: url('../images/ui/set/camera_delete.png') center top no-repeat;
+}
+.fs-icon-camera-noflash-add {
+    background: url('../images/ui/set/camera_noflash_add.png') center top no-repeat;
+}
+.fs-icon-camera-noflash-delete {
+    background: url('../images/ui/set/camera_noflash_delete.png') center top no-repeat;
+}
+.fs-icon-camera-noflash {
+    background: url('../images/ui/set/camera_noflash.png') center top no-repeat;
+}
+.fs-icon-camera-noflash-warning {
+    background: url('../images/ui/set/camera_noflash_warning.png') center top no-repeat;
+}
+.fs-icon-camera {
+    background: url('../images/ui/set/camera.png') center top no-repeat;
+}
+.fs-icon-camera-warning {
+    background: url('../images/ui/set/camera_warning.png') center top no-repeat;
+}
+.fs-icon-cancel {
+    background: url('../images/ui/set/cancel.png') center top no-repeat;
+}
+.fs-icon-cd {
+    background: url('../images/ui/set/cd.png') center top no-repeat;
+}
+.fs-icon-circle-blue {
+    background: url('../images/ui/set/circle_blue.png') center top no-repeat;
+}
+.fs-icon-circle-green {
+    background: url('../images/ui/set/circle_green.png') center top no-repeat;
+}
+.fs-icon-circle-orange {
+    background: url('../images/ui/set/circle_orange.png') center top no-repeat;
+}
+.fs-icon-circle-red {
+    background: url('../images/ui/set/circle_red.png') center top no-repeat;
+}
+.fs-icon-clock {
+    background: url('../images/ui/set/clock.png') center top no-repeat;
+}
+.fs-icon-coffee {
+    background: url('../images/ui/set/coffee.png') center top no-repeat;
+}
+.fs-icon-comment-add {
+    background: url('../images/ui/set/comment_add.png') center top no-repeat;
+}
+.fs-icon-comment {
+    background: url('../images/ui/set/comment.png') center top no-repeat;
+}
+.fs-icon-comment-remove {
+    background: url('../images/ui/set/comment_remove.png') center top no-repeat;
+}
+.fs-icon-comment-warning {
+    background: url('../images/ui/set/comment_warning.png') center top no-repeat;
+}
+.fs-icon-computer {
+    background: url('../images/ui/set/computer.png') center top no-repeat;
+}
+.fs-icon-cross {
+    background: url('../images/ui/set/cross.png') center top no-repeat;
+}
+.fs-icon-database-add {
+    background: url('../images/ui/set/database_add.png') center top no-repeat;
+}
+.fs-icon-database {
+    background: url('../images/ui/set/database.png') center top no-repeat;
+}
+.fs-icon-database-remove {
+    background: url('../images/ui/set/database_remove.png') center top no-repeat;
+}
+.fs-icon-database-warning {
+    background: url('../images/ui/set/database_warning.png') center top no-repeat;
+}
+.fs-icon-delicious {
+    background: url('../images/ui/set/delicious.png') center top no-repeat;
+}
+.fs-icon-designfloat {
+    background: url('../images/ui/set/designfloat.png') center top no-repeat;
+}
+.fs-icon-digg {
+    background: url('../images/ui/set/digg.png') center top no-repeat;
+}
+.fs-icon-feedburner {
+    background: url('../images/ui/set/feedburner.png') center top no-repeat;
+}
+.fs-icon-flickr {
+    background: url('../images/ui/set/flickr.png') center top no-repeat;
+}
+.fs-icon-floppy-disk {
+    background: url('../images/ui/set/floppy_disk.png') center top no-repeat;
+}
+.fs-icon-folder-add {
+    background: url('../images/ui/set/folder_add.png') center top no-repeat;
+}
+.fs-icon-folder-delete {
+    background: url('../images/ui/set/folder_delete.png') center top no-repeat;
+}
+.fs-icon-folder {
+    background: url('../images/ui/set/folder.png') center top no-repeat;
+}
+.fs-icon-folder-warning {
+    background: url('../images/ui/set/folder_warning.png') center top no-repeat;
+}
+.fs-icon-furl {
+    background: url('../images/ui/set/furl.png') center top no-repeat;
+}
+.fs-icon-globe {
+    background: url('../images/ui/set/globe.png') center top no-repeat;
+}
+.fs-icon-google {
+    background: url('../images/ui/set/google.png') center top no-repeat;
+}
+.fs-icon-heart {
+    background: url('../images/ui/set/heart.png') center top no-repeat;
+}
+.fs-icon-home {
+    background: url('../images/ui/set/home.png') center top no-repeat;
+}
+.fs-icon-image-add {
+    background: url('../images/ui/set/image_add.png') center top no-repeat;
+}
+.fs-icon-image-delete {
+    background: url('../images/ui/set/image_delete.png') center top no-repeat;
+}
+.fs-icon-image {
+    background: url('../images/ui/set/image.png') center top no-repeat;
+}
+.fs-icon-image-warning {
+    background: url('../images/ui/set/image_warning.png') center top no-repeat;
+}
+.fs-icon-lightbulb {
+    background: url('../images/ui/set/lightbulb.png') center top no-repeat;
+}
+.fs-icon-lock-open {
+    background: url('../images/ui/set/lock_open.png') center top no-repeat;
+}
+.fs-icon-lock {
+    background: url('../images/ui/set/lock.png') center top no-repeat;
+}
+.fs-icon-mail-add {
+    background: url('../images/ui/set/mail_add.png') center top no-repeat;
+}
+.fs-icon-mail-delete {
+    background: url('../images/ui/set/mail_delete.png') center top no-repeat;
+}
+.fs-icon-mail-forward {
+    background: url('../images/ui/set/mail_forward.png') center top no-repeat;
+}
+.fs-icon-mail {
+    background: url('../images/ui/set/mail.png') center top no-repeat;
+}
+.fs-icon-mail-reply {
+    background: url('../images/ui/set/mail_reply.png') center top no-repeat;
+}
+.fs-icon-mail-spam {
+    background: url('../images/ui/set/mail_spam.png') center top no-repeat;
+}
+.fs-icon-mail-write {
+    background: url('../images/ui/set/mail_write.png') center top no-repeat;
+}
+.fs-icon-mixx {
+    background: url('../images/ui/set/mixx.png') center top no-repeat;
+}
+.fs-icon-mouse {
+    background: url('../images/ui/set/mouse.png') center top no-repeat;
+}
+.fs-icon-navigate {
+    background: url('../images/ui/set/navigate.png') center top no-repeat;
+}
+.fs-icon-newspaper {
+    background: url('../images/ui/set/newspaper.png') center top no-repeat;
+}
+.fs-icon-paper-content-chart {
+    background: url('../images/ui/set/paper_content_chart.png') center top no-repeat;
+}
+.fs-icon-paper-content-pencil {
+    background: url('../images/ui/set/paper_content_pencil.png') center top no-repeat;
+}
+.fs-icon-paper-content {
+    background: url('../images/ui/set/paper_content.png') center top no-repeat;
+}
+.fs-icon-paper&pencil {
+    background: url('../images/ui/set/paper&pencil.png') center top no-repeat;
+}
+.fs-icon-paper {
+    background: url('../images/ui/set/paper.png') center top no-repeat;
+}
+.fs-icon-pencil {
+    background: url('../images/ui/set/pencil.png') center top no-repeat;
+}
+.fs-icon-pie-chart {
+    background: url('../images/ui/set/pie_chart.png') center top no-repeat;
+}
+.fs-icon-printer {
+    background: url('../images/ui/set/printer.png') center top no-repeat;
+}
+.fs-icon-questionmark {
+    background: url('../images/ui/set/questionmark.png') center top no-repeat;
+}
+.fs-icon-reddit {
+    background: url('../images/ui/set/reddit.png') center top no-repeat;
+}
+.fs-icon-refresh {
+    background: url('../images/ui/set/refresh.png') center top no-repeat;
+}
+.fs-icon-rss {
+    background: url('../images/ui/set/rss.png') center top no-repeat;
+}
+.fs-icon-search {
+    background: url('../images/ui/set/search.png') center top no-repeat;
+}
+.fs-icon-smile-grin {
+    background: url('../images/ui/set/smile_grin.png') center top no-repeat;
+}
+.fs-icon-smile-sad {
+    background: url('../images/ui/set/smile_sad.png') center top no-repeat;
+}
+.fs-icon-spanner {
+    background: url('../images/ui/set/spanner.png') center top no-repeat;
+}
+.fs-icon-speech-bubble {
+    background: url('../images/ui/set/speech_bubble.png') center top no-repeat;
+}
+.fs-icon-star-half {
+    background: url('../images/ui/set/star_half.png') center top no-repeat;
+}
+.fs-icon-star-off {
+    background: url('../images/ui/set/star_off.png') center top no-repeat;
+}
+.fs-icon-star {
+    background: url('../images/ui/set/star.png') center top no-repeat;
+}
+.fs-icon-sumbleupon {
+    background: url('../images/ui/set/sumbleupon.png') center top no-repeat;
+}
+.fs-icon-table-green {
+    background: url('../images/ui/set/table_green.png') center top no-repeat;
+}
+.fs-icon-table {
+    background: url('../images/ui/set/table.png') center top no-repeat;
+}
+.fs-icon-tabs {
+    background: url('../images/ui/set/tabs.png') center top no-repeat;
+}
+.fs-icon-technorati {
+    background: url('../images/ui/set/technorati.png') center top no-repeat;
+}
+.fs-icon-thumbs-down {
+    background: url('../images/ui/set/thumbs_down.png') center top no-repeat;
+}
+.fs-icon-thumbs-up {
+    background: url('../images/ui/set/thumbs_up.png') center top no-repeat;
+}
+.fs-icon-twitter-boxed {
+    background: url('../images/ui/set/twitter_boxed.png') center top no-repeat;
+}
+.fs-icon-twitter {
+    background: url('../images/ui/set/twitter.png') center top no-repeat;
+}
+.fs-icon-usb {
+    background: url('../images/ui/set/usb.png') center top no-repeat;
+}
+.fs-icon-user-add {
+    background: url('../images/ui/set/user_add.png') center top no-repeat;
+}
+.fs-icon-user-delete {
+    background: url('../images/ui/set/user_delete.png') center top no-repeat;
+}
+.fs-icon-user {
+    background: url('../images/ui/set/user.png') center top no-repeat;
+}
+.fs-icon-users-two-add {
+    background: url('../images/ui/set/users_two_add.png') center top no-repeat;
+}
+.fs-icon-users-two {
+    background: url('../images/ui/set/users_two.png') center top no-repeat;
+}
+.fs-icon-users-two-warning {
+    background: url('../images/ui/set/users_two_warning.png') center top no-repeat;
+}
+.fs-icon-user-two-delete {
+    background: url('../images/ui/set/user_two_delete.png') center top no-repeat;
+}
+.fs-icon-user-warning {
+    background: url('../images/ui/set/user_warning.png') center top no-repeat;
+}
+.fs-icon-warning {
+    background: url('../images/ui/set/warning.png') center top no-repeat;
+}
+.fs-icon-yahoo {
+    background: url('../images/ui/set/yahoo.png') center top no-repeat;
+}

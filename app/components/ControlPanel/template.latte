@@ -1,0 +1,10 @@
+<div class="directory-list">
+{foreach $actions as $action}
+    <div class="file fs-icon-{$action->icon}">      
+        <a href="{$action->link}">{$action->name}</a>      
+    </div>
+    <div n:if="$iterator->isLast($control->columnsCount)" class="clearer"></div>
+
+{/foreach}
+</div>
+

@@ -1,0 +1,13 @@
+{layout "../../../templates/@layout.latte"}
+
+
+{block #content}
+
+<pre>
+{control exportCsob}
+</pre>
+
+<p>
+   <a href="{link this, parent => $control->getParam("parent"), download => true}">Stáhnout jako textový soubor</a>.
+</p>
+{/block}

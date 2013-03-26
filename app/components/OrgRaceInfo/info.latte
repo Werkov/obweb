@@ -1,0 +1,5 @@
+{block info}
+
+{foreach $values as $value}
+    <p><strong>{$value->Information->name}: </strong>{if $value->Information->html}{!$value->value}{else}{$value->value}{/if}</p>
+{/foreach}

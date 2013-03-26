@@ -1,0 +1,15 @@
+{snippet photoViewer}
+<div class="photo-list">
+   {foreach $photos as $photo}
+
+   <div class="photo">
+      <a href="{=$baseUri}/{=$path . '/'. $photo->file|thumb:1000}"  title="{$photo->desc}" rel="prettyPhoto[gal]"><img src="{$photo->getThumbnailUrl(140)}" alt="{$photo->file}"></a>
+   </div>
+   <div n:if="$iterator->getCounter() % $control->columnsCount == 0" class="clearer"></div>
+   {/foreach}
+   <div n:if="count($photos) % $control->columnsCount != 0" class="clearer"></div>
+</div>
+{block paginator}
+{control $control->getPaginator()}
+{/block}
+{/snippet}

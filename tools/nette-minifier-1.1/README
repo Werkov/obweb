@@ -1,0 +1,46 @@
+NETTE MINIFIER
+==============
+
+Nástroj na zabalení celého Nette Frameworku do jediného PHP souboru. Ten poté
+lze snadněji přenést na server, je menší a také se o něco zrychlí běh celé
+vaší aplikace.
+
+
+Použití:
+--------
+
+	SYNTAXE
+
+	php minify.php cesta_k_adresari_s_nette [--stdout] [--outfile nazev_souboru] [--debug]
+
+		cesta_k_adresari_s_nette
+			Relativní nebo absolutní cesta k adresáři, ve kterém se nachází loader.php
+
+		--stdout
+			Minifikovaný kód vypíše na standartní výstup.
+
+		--outfile nazev_souboru
+			Název souboru, do kterého zapíše výsledný kód. Defaultně 'loader.minified.php'
+
+		--debug
+			Vypíše podrobnější výpis o průběhu procesu.
+
+	TESTOVÁNÍ
+
+	vygenerovaný soubor si pro jistotu jednoduše otestujte tím, že ho spustíte jako php
+
+		php loader.minified.php
+
+	Skript nesmí vypsat žádný výstup. Pokud PHP oznámí chybu, prosím kontaktujte autora.
+
+
+Hlášení chyb:
+-------------
+
+	Pokud objevíte chybu, prosím kontaktujte mne na emailu dolezal@gdmt.cz s popisem chyby a verzí Nette.
+
+
+Známé chyby:
+------------
+
+	Žádné známé chyby.

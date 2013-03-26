@@ -1,0 +1,102 @@
+common:
+    parameters:
+        gallery:
+            path: files/gallery
+            thumbPath: files/gallery/thumbs
+            maxSize: "1200"
+            
+        documents:
+            path: files/documents
+
+        organization:
+            templatePath: %appDir%/OrganizationModule/templates/site
+            eventsPath: %wwwDir%/subdomains
+            
+        texy:
+            tabWidth: 4
+            allowed:
+                emoticon: true
+            __emoticonModule:
+                root: /images/smilies
+            __headingModule:
+                top: 2
+        texyPublic:
+            tabWidth: 4
+            allowed:
+                html/tag: false
+                emoticon: true
+            __emoticonModule:
+                root: /images/smilies
+            __headingModule:
+                top: 2
+
+        database:
+            driver: mysqli
+            charset: utf8
+            substitutes:
+                t: false
+                
+            result:
+                detectTypes: true
+        
+    php:
+        date.timezone: Europe/Prague
+        session.save_path: %tempDir%/sessions
+        
+    services:
+        authenticator: ACL\Authenticator
+        authorizator:
+            class: ACL\Authorizator
+            factory: ACL\Authorizator::createService
+        frecency: Model\FrecencyLog
+        ORMCache:
+            class: Nette\Caching\Cache
+            arguments: [@ORMCacheStorage, orm_data]
+        ORMCacheStorage:
+            class: Nette\Caching\Storages\MemoryStorage
+        session:
+            class: \OOB\SmartSession
+            setup:
+                - setExpiration(+20 days)
+                - addFilterMask(/googlebot/i)
+                - addFilterMask(/seznambot/i)
+                - addFilterMask(/bingbot/i)
+                - addFilterMask(/screenshot-generator/i)
+                - addFilterMask(/exositesbot/i)
+                - addFilterMask(/ezooms/i)
+                - addFilterMask(/feedfetcher/i)
+                - addFilterMask(/mj12bot/i)
+
+        texy:
+            class: \Texy
+            factory: TexyFactory::create(%texy%)
+        texyPublic:
+            class: \Texy
+            factory: TexyFactory::create(%texyPublic%)
+
+    includes:
+        - feeds.neon
+        - meta.neon
+
+        
+    
+development < common:
+    parameters:
+        domain: localhost
+        baseUrl: localhost
+        database:
+            host: 127.0.0.1
+            username: dev
+            password: pwd
+            database: ob
+            profiler: true
+
+production < common:
+    parameters:
+        domain: oobtrebic.cz
+        database:
+            host: 127.0.0.1
+            username: user
+            password: pwd
+            database: ob
+            profiler: false

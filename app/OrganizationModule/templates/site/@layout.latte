@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="description" content="{$sitetitle} - {$clubShort}">
+        <meta name="keywords" content=" {$clubFull}, {$sitetitle}">
+        <link rel="alternate" type="application/rss+xml" title="Aktuality" href="{link rss}"> 
+        <link rel="shortcut icon" href="{$baseDomainUrl}/favicon.ico" type="image/x-icon" >
+
+	{block #loadCSS}
+        <link rel="stylesheet" type="text/css" media="all" href="{$baseDomainUrl}/css/org-style.css" >
+        <link type="text/css" href="{$baseDomainUrl}/css/jquery-ui.css" rel="stylesheet">
+	{/block}
+
+
+        <!-- general support JS -->
+	{block #loadJS}
+        <script type="text/javascript" src="{$baseDomainUrl}/js/jquery.js"></script>
+        <script type="text/javascript" src="{$baseDomainUrl}/js/jquery.livequery.js"></script>
+        <script type="text/javascript" src="{$baseDomainUrl}/js/jquery.nette.js"></script>
+        <script type="text/javascript" src="{$baseDomainUrl}/js/jquery.ui.min.js"></script>
+	{/block}
+
+
+
+
+      {if $control->getPresenter()->name == 'Organization:Homepage'}
+        <title>{$event->name} | {$clubShort}</title>
+      {else}
+        <title>{block #title}{/block} | {$event->name} | {$clubShort}</title>
+      {/if}
+    </head>
+
+    <body>
+        <div id="header">
+            <h1>{$event->name}</h1>
+        <p>{if $event->end}{$event->start|date:'j. n. Y'}&ndash;{$event->end|date:'j. n. Y'}{else}{$event->start|date:'j. n. Y'}{/if}</p>
+    </div>
+
+
+    <div id="navigation">
+    {block #navigation}
+        <ul id="navlist">
+          {* zde může být upraveno menu *}
+            <li><a href="{link :Organization:Homepage:default}">Novinky</a></li>
+      {foreach $event->Races->orderBy('[order]') as $race}
+            {if count($event->Races) > 1}
+                {var $raceUrl => $race->url}
+            <li><span style="color:#222">{$race->name}:</span>
+                <ul>
+            {else}
+                {var $raceUrl => null}
+            {/if}
+                    <li><a href="{link :Organization:Info:details, race => $raceUrl}">Rozpis</a></li>
+                    <li><a href="{link :Organization:Info:instructions, race => $raceUrl}">Pokyny</a></li>
+                    <li><a href="{link :Organization:Info:tracks, race => $raceUrl}">Parametry tratí</a></li>
+                    <li>Startovka:
+                        <ul>
+                            <li><a href="{link :Organization:Start:category, race => $raceUrl}">kategorií</a></li>
+                            <li><a href="{link :Organization:Start:club, race => $raceUrl}">oddílů</a></li>
+                        </ul>
+                    </li>
+                    <li>Výsledky:
+                        <ul>
+                            <li><a href="{link :Organization:Results:default, race => $raceUrl}">výsledky</a></li>
+                            <li><a href="{link :Organization:Results:splits, race => $raceUrl}">mezičasy</a></li>
+                        </ul>
+                    </li>
+            {if count($event->Races) > 1}
+                </ul>
+            {/if}
+
+      {/foreach}
+      {*<li><p> --- Zde může být vloženo krátké oznámení --- </p></li>*}
+        </ul>
+    {/block}
+      </div> <!-- konec menu -->
+    {block #sidebar}
+    {*<div id="sidebar">
+        <h2>Sponzoři</h2>
+        <p><img src="logo 02_160.jpg" /></p>
+        <p><img src="logo 02_161.jpg" /></p>
+        <p><img src="logo 02_162.jpg" /></p>
+    </div>*}
+    {/block}
+
+
+
+
+    <div id="content" style="margin-right:0px;">
+{include #content}
+    </div> <!-- konec hlavního obsahu -->
+
+<!-- patička stránky -->
+    <div id="footer">
+        <p><a href="{link :Public:Homepage:default}">{$clubShort}</a>  <a href="http://www.obvysocina.cz/">Oblast Vysočina</a>  <a href="http://www.orientacnibeh.cz/">ČSOB</a></p>
+    </div>
+
+</body>
+</html>

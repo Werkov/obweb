@@ -1,0 +1,16 @@
+{layout "../@layout.latte"}
+
+{block #loadJS}
+{include #parent}
+{include ../@gridito.latte}
+{/block}
+
+{block #content}
+
+{*{block #header}
+<h1>Výpis</h1>
+{/block}*}
+
+{block #grid}
+Gridito.
+{/block}

@@ -1,0 +1,22 @@
+<link type="text/css" href="{$baseUri}/css/ColorPicker/colorpicker.css" rel="stylesheet">
+
+<script type="text/javascript" src="{$basePath}/js/ColorPicker/colorpicker.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('input.colpicker').ColorPicker({
+	onSubmit: function(hsb, hex, rgb, el) {
+		$(el).val(hex);
+		$(el).ColorPickerHide();
+	},
+	onChange: function(hsb, hex, rgb, el) {
+		$(el).val(hex);
+	},
+	onBeforeShow: function () {
+		$(this).ColorPickerSetColor(this.value);
+	}
+	})
+	.bind('keyup', function(){
+		$(this).ColorPickerSetColor(this.value);
+	});
+});
+</script>

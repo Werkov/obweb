@@ -1,0 +1,19 @@
+{block profile}
+
+
+<table class="entity-info">
+   <tr><th>Registrace:</th><td>{$listedUser->registration}</td></tr>
+   {if $full}
+   <tr n:if="$listedUser->Member && $listedUser->Member->SI"><th>SI:</th><td>{$listedUser->Member->SI}</td></tr>
+   
+   <tr n:if="$listedUser->phone"><th>Telefon:</th><td>{$listedUser->phone}</td></tr>
+   <tr n:if="$listedUser->address"><th>Adresa:</th><td>{$listedUser->address}</td></tr>
+   <tr n:if="$listedUser->email"><th>E-mail:</th><td>{$listedUser->email|mail}</td></tr>
+   <tr n:if="$listedUser->IM"><th>IM:</th><td>{$listedUser->IM}</td></tr>
+   <tr n:if="$listedUser->other"><th>Ostatní:</th><td>{$listedUser->other}</td></tr>
+   
+   {/if}
+
+
+   
+</table>
