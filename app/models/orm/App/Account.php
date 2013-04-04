@@ -45,8 +45,8 @@ class Account extends \Navigation\Record implements \Nette\Security\IResource {
 
    public function invalidateBalance() {
       //balance is sum of all tranactions and prices of all
-      $sum = 0;
-      /* foreach($this->AccountTransactions as $transaction){
+      /*$sum = 0;
+        foreach($this->AccountTransactions as $transaction){
         $sum += $transaction->amount;
         }
 
