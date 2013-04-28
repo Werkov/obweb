@@ -28,10 +28,10 @@ final class RacePresenter extends \RecordPresenter {
         Race::updateStatus();
         // model
         $grid->setModel(new \Gridito\DibiFluentModel(\dibi::select("begin, r.name AS name, r.id AS id, COUNT(e.id) AS entries, r.status AS status, r.deadline AS deadline")
-                                ->from(":t:app_race AS r")
-                                ->leftJoin(":t:app_race2category AS rc")->on("rc.race_id = r.id")
-                                ->leftJoin(":t:app_entry AS e")->on("e.presentedCategory_id = rc.id")
-                                ->groupBy("r.id")
+                        ->from(":t:app_race AS r")
+                        ->leftJoin(":t:app_race2category AS rc")->on("rc.race_id = r.id")
+                        ->leftJoin(":t:app_entry AS e")->on("e.presentedCategory_id = rc.id")
+                        ->groupBy("r.id")
         ));
         $grid->getModel()->setSorting("begin", "DESC");
 
@@ -57,7 +57,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid->addButton("sub0", "Poplatky »")->setLink(function ($row) use($pres) {
                             return $pres->link("CostOption:list", array(
                                         "parent" => $row->id,
-                                    ));
+                            ));
                         })->setIcon("money")
                 ->setAjax(false)
                 ->setShowText(false)
@@ -68,7 +68,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid->addButton("sub1", "Ceny kategorií »")->setLink(function ($row) use($pres) {
                             return $pres->link("categories", array(
                                         "id" => $row->id,
-                                    ));
+                            ));
                         })->setIcon("table")
                 ->setAjax(false)
                 ->setShowText(false)
@@ -79,7 +79,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid->addButton("sub2", "Přihlášky »")->setLink(function ($row) use($pres) {
                             return $pres->link("Entry:list", array(
                                         "parent" => $row->id,
-                                    ));
+                            ));
                         })->setIcon("applications")
                 ->setShowText(false)
                 ->setAjax(false);
@@ -210,12 +210,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid = new \Gridito\EGrid($this, $name);
 
         // model
-        $grid->setModel(new \Gridito\DibiFluentModel(\dibi::select("c.name AS name, p.price AS price, p.id AS id")
-                                ->from(":t:app_race2category AS p")
-                                ->leftJoin(":t:app_category AS c")->on("c.id = p.category_id")
-                                ->where("p.race_id = %i", $this->race->id)
-                                ->orderBy("c.name")
-        ));
+        $grid->setModel(new \Gridito\DibiFluentModel($this->getCategoriesQuery()));
 
 
         // columns
@@ -235,19 +230,6 @@ final class RacePresenter extends \RecordPresenter {
         $pres = $this;
 
         $grid->setShowAdd(false);
-
-        /* $grid->addToolbarButton("add", "Přidat")
-          ->setLink($this->link("add"))
-          ->setIcon("document");
-
-          $grid->addToolbarButton("aadd", "Přidat 2")
-          ->setLink($this->link("add"))
-          ->setIcon("document"); */
-
-
-        /* $grid->addButton("edit", "Upravit")->setLink(function ($row) use($pres) {
-          return $pres->link("edit", array("id" => $row->id));
-          })->setIcon("pencil"); */
 
         $grid->addButton("delete", "Smazat")
                 ->setHandler(function($id) use($pres) {
@@ -272,25 +254,55 @@ final class RacePresenter extends \RecordPresenter {
                 });
 
 
-        /* $grid->addWindowButton("detail", "Detail", array(
-          "handler" => function ($user) {
-          echo "AHOJ";
-          return;
-          echo "<p><strong>$user->name </strong></p>";
-          echo "<table>";
-          echo "<tr><th>ID</th><td>$user->id</td></tr>";
-          echo "<tr><th>Username</th><td></td></tr>";
-          echo "<tr><th>E-mail</th><td>mail</td></tr>";
-          echo "<tr><th>Active</th><td>ano</td></tr>";
-          echo "</table>";
-          },
-          "icon" => "ui-icon-search",
-          )); */
-
         //settings
         $grid->setItemsPerPage(self::IPP);
 
         return $grid;
+    }
+
+    protected function createComponentPriceEdit($name) {
+        $component = new \OOB\CategoryPriceEdit();
+
+        $categories = $this->getCategoriesQuery();
+        $component->setDataSource(function() use($categories) {
+                    return $categories->fetchPairs('name', 'price');
+                });
+
+        $pres = $this;
+        $categoriesData = $categories->fetchAll();
+        $component->setDataHandler(function($data) use($pres, $categoriesData) {
+                    $report = array();
+
+                    // process existing categories
+                    foreach($categoriesData as $row) {
+                        $name = $row['name'];
+                        if (isset($data[$name])) {
+                            $category = \Model\App\Race2category::create($row);
+                            if ($category->price != $data[$name]) {
+                                $report[] = 'Startovné kategorie ' . $name . ' změněno z ' . $category->price . ' na ' . $data[$name] . '.';
+                                $category->price = $data[$name];
+                                $category->save();
+                            }
+                            unset($data[$name]);
+                        } else {
+                            $report[] = 'Kategorie ' . $name . ' nedotčena, není v CSV.';
+                        }
+                    }
+                    
+                    // report ignored entries in CSV
+                    foreach($data as $category) {
+                        $report[] = 'Nevypsaná kategorie ' . $category . ' v CSV.';
+                    }
+                    
+                    foreach($report as $message){                        
+                        $pres->flashMessage($message);
+                    }
+                    $pres->flashMessage('CSV importováno.');
+                });
+
+        $component->setFilename(\Nette\Utils\Strings::webalize($this->race->name) . '.csv');
+
+        return $component;
     }
 
     // </editor-fold>
@@ -360,6 +372,14 @@ final class RacePresenter extends \RecordPresenter {
         
     }
 
+    private function getCategoriesQuery() {
+        return \dibi::select("c.name AS name, p.price AS price, p.id AS id")
+                        ->from(":t:app_race2category AS p")
+                        ->leftJoin(":t:app_category AS c")->on("c.id = p.category_id")
+                        ->where("p.race_id = %i", $this->race->id)
+                        ->orderBy("c.name");
+    }
+
     //</editor-fold>
     //<editor-fold desc="Public">
 
@@ -422,7 +442,7 @@ final class RacePresenter extends \RecordPresenter {
             $grid->addButton("applications", "Přihlášky »")->setLink(function ($row) use($pres) {
                                 return $pres->link("Entry:plist", array(
                                             "parent" => $row->id,
-                                        ));
+                                ));
                             })/* ->setVisible(function ($row) use($pres) {
                       $race = Race::create($row);
                       $entry = \Model\App\Entry::create();
@@ -436,7 +456,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid->addButton("info", "Informace »")->setLink(function ($row) use($pres) {
                             return $pres->link("Race:detail", array(
                                         "id" => $row->id,
-                                    ));
+                            ));
                         })/* ->setVisible(function ($row) use($pres) {
                   $race = Race::create($row);
                   $entry = \Model\App\Entry::create();
@@ -474,8 +494,8 @@ final class RacePresenter extends \RecordPresenter {
         if ($r->status == Race::STATUS_EDIT && !$this->getUser()->isAllowed($r, "edit")) {
             throw new \Nette\Application\BadRequestException("Závod není zveřejněn", 403);
         }
-        
-        
+
+
         $r->deadline->add(new \DateInterval('PT23H59M59S')); // correction as in DB is only date
         $this->template->race = $r;
 
