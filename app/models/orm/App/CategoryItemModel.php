@@ -35,7 +35,8 @@ class CategoryItemModel implements \OOB\Forms\IItemsModel {
         if (\array_key_exists($name, $this->nameToId)) {
             return $this->nameToId[$name];
         } else if ($insert == true) {
-            if (\dibi::query("INSERT INTO :t:app_category", array("name" => $name))) {
+            $safeName = str_replace(array("\r", "\n"), ' ', $name);
+            if (\dibi::query("INSERT INTO :t:app_category", array("name" => $safeName))) {
                 $id = \dibi::insertId();
                 $this->nameToId[$name] = $id;
                 return $id;
