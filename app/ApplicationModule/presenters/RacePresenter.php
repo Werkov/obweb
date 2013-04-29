@@ -290,7 +290,7 @@ final class RacePresenter extends \RecordPresenter {
                     }
                     
                     // report ignored entries in CSV
-                    foreach($data as $category) {
+                    foreach($data as $category => $price) {
                         $report[] = 'Nevypsaná kategorie ' . $category . ' v CSV.';
                     }
                     

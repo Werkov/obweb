@@ -60,11 +60,12 @@ class CategoryPriceEdit extends \Nette\Application\UI\Control {
 
         $form->addSubmit('Import', 'Importovat');
 
-        $form->onSuccess[] = function($form) {
+        $that = $this; // phew, PHP...
+        $form->onSuccess[] = function($form) use($that) {
                     $values = $form->getValues();
                     $file = $values['inputFile'];
-                    $data = $this->parseCSV($file->getTemporaryFile());
-                    call_user_func($this->dataHandler, $data);
+                    $data = $that->parseCSV($file->getTemporaryFile());
+                    call_user_func($that->dataHandler, $data);
                 };
 
         $form->addProtection('Vypršela časová platnost formuláře, prosím odešlete znova.');
@@ -93,7 +94,10 @@ class CategoryPriceEdit extends \Nette\Application\UI\Control {
         $this->presenter->sendResponse(new TextResponse($content));
     }
 
-    private function parseCSV($filename) {
+    /**
+     * @internal (for use in closure only)
+     */
+    public function parseCSV($filename) {
         $result = array();
         foreach (file($filename, FILE_IGNORE_NEW_LINES) as $line) {
             $parts = explode(self::DELIMITER, $line);
