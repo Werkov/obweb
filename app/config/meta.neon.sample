@@ -5,3 +5,4 @@ parameters:
         code: ZKRATKA
         mail: johndoe@example.org
         feedMail: feed@example.org
+    propertyUrl: http://google.com

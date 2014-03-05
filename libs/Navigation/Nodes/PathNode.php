@@ -35,7 +35,12 @@ class PathNode extends \Nette\Object {
 
 		return $this->link;
 	}
+        
+        public function setLink($link) {
+            $this->link = $link;
+        }
 
+        
 	public function getText()
 	{
 		return $this->text;

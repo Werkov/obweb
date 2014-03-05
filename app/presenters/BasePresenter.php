@@ -5,6 +5,7 @@
  *
  * @author michal
  */
+use Navigation\ExternalNode;
 use Navigation\Navigation;
 use Navigation\StaticNode;
 use Navigation\DynamicNode;
@@ -224,10 +225,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
                 ->setMenu(false);
 
         //Trusteeship
-        $perNode->addChild(new StaticNode("Správa majetku", "https://docs.google.com/spreadsheet/ccc?key=0AmTtRH2FPK7edHZJcEFCU0RwMGVpOW1UbzNLaXF0TlE&usp=sharing"))
-                ->setVisible(callback("ACL\\MenuModel::Property"))
-                ->addChild(new DynamicNode("Úprava položky", ":Personal:Propery:edit"))
-                ->setMenu(false);
+        $perNode->addChild(new ExternalNode("Správa majetku", $this->context->parameters['propertyUrl']))
+                ->setVisible(callback("ACL\\MenuModel::Property"));
+
         // Help
 //        $perNode->addChild(new StaticNode("Dokumentace", ":Public:StaticPage:default"))
 //                ->setParameters(array('id' => 'dokumentace'))
