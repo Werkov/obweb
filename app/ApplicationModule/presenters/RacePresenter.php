@@ -434,10 +434,11 @@ final class RacePresenter extends \RecordPresenter {
                                 echo \OOB\Helpers::iconRaceStatus($row->status);
                             });
 
+            $user = $this->getUser()->getIdentity();
             $grid->addColumn("applied", "Přihlášen")->setSortable(true)
-                    ->setRenderer(function($row, $column) {
+                    ->setRenderer(function($row, $column) use($user) {
                                 $row->deadline->add(new \DateInterval('PT23H59M59S')); // correction as in DB is only date
-                                echo \OOB\Helpers::iconAppliactionStatus($row->applied, $row->deadline, $this->getUser()->getIdentity()->sex);
+                                echo \OOB\Helpers::iconAppliactionStatus($row->applied, $row->deadline, $user->sex);
                             });
 
             $grid->addButton("applications", "Přihlášky »")->setLink(function ($row) use($pres) {
