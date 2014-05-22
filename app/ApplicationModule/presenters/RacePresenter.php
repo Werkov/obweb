@@ -274,7 +274,7 @@ final class RacePresenter extends \RecordPresenter {
                     $report = array();
 
                     // process existing categories
-                    foreach($categoriesData as $row) {
+                    foreach ($categoriesData as $row) {
                         $name = $row['name'];
                         if (isset($data[$name])) {
                             $category = \Model\App\Race2category::create($row);
@@ -288,13 +288,13 @@ final class RacePresenter extends \RecordPresenter {
                             $report[] = 'Kategorie ' . $name . ' nedotčena, není v CSV.';
                         }
                     }
-                    
+
                     // report ignored entries in CSV
-                    foreach($data as $category => $price) {
+                    foreach ($data as $category => $price) {
                         $report[] = 'Nevypsaná kategorie ' . $category . ' v CSV.';
                     }
-                    
-                    foreach($report as $message){                        
+
+                    foreach ($report as $message) {
                         $pres->flashMessage($message);
                     }
                     $pres->flashMessage('CSV importováno.');
@@ -397,7 +397,7 @@ final class RacePresenter extends \RecordPresenter {
         $grid = new \Gridito\Grid($this, $name);
 
         // model
-        $fl = \dibi::select("r.begin, r.url, r.name AS name, r.id AS id, COUNT(e.id) AS entries, r.status AS status, r.place, r.organizer")
+        $fl = \dibi::select("r.begin, r.url, r.name AS name, r.id AS id, COUNT(e.id) AS entries, r.status AS status, r.place, r.organizer, r.deadline")
                 ->from(":t:app_race AS r")
                 ->leftJoin(":t:app_race2category AS rc")->on("rc.race_id = r.id")
                 ->leftJoin(":t:app_entry AS e")->on("e.presentedCategory_id = rc.id")
@@ -436,7 +436,8 @@ final class RacePresenter extends \RecordPresenter {
 
             $grid->addColumn("applied", "Přihlášen")->setSortable(true)
                     ->setRenderer(function($row, $column) {
-                                echo \OOB\Helpers::iconAppliactionStatus($row->applied);
+                                $row->deadline->add(new \DateInterval('PT23H59M59S')); // correction as in DB is only date
+                                echo \OOB\Helpers::iconAppliactionStatus($row->applied, $row->deadline, $this->getUser()->getIdentity()->sex);
                             });
 
             $grid->addButton("applications", "Přihlášky »")->setLink(function ($row) use($pres) {
