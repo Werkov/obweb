@@ -25,7 +25,9 @@ final class EventPresenter extends \RecordPresenter {
                         ->from(":t:org_event AS e")
                         ->leftJoin(":t:org_event2user AS eu")->on("eu.event_id = e.id");
         Event::SqlVisibility($this->getUser(), $fl);
+        
         $grid->setModel(new \Gridito\DibiFluentModel($fl));
+        $grid->getModel()->setSorting('e.start', 'DESC');
 
 
         // columns
