@@ -19,7 +19,7 @@
    <tr><th>Čas startu 00:</th><td>{$race->start}</td></tr>
    <tr><th>Příznak:</th><td>{$race->Tag->name}</td></tr>
    <tr><th>Uzávěrka přihlášek:</th><td>{!$race->deadline|timeInWords:true}</td></tr>
-   <tr n:if="$race->web"><th>WWW stránky:</th><td><a href="{$race->web}">{$race->web}</a></td></tr>
+   <tr n:if="$race->web"><th>WWW stránky:</th><td><a href="{$race->web}" target="_blank">{$race->web}</a></td></tr>
    <tr><th>Stav:</th><td>{!$race->status|iconRaceStatus}</td></tr>
    <tr><th>Přihlašuje:</th><td>{$race->Manager->getFullname(false)}</td></tr>
    <tr><th>Vypsané kategorie:</th><td>
