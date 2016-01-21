@@ -80,6 +80,10 @@ $router[] = new Route("//[!www.]$domain/mcr11[/.*]", array(
             'action' => 'default',
             'q' => 'mcr11',
                 ), Route::ONE_WAY);
+// Redirect Authentiaction presenter and everything out of public module to HTTPS
+$router[] = new Route("//[!www.]$domain/auth[/<action>[/<id>]]", 'Public:Authentication:default', Route::SECURED);
+$router[] = new Route("//[!www.]$domain/<presenter ((?!public).)*\\..+>[/<action>[/<id>]]", array(), Route::SECURED);
+
 $router[] = new Route("//[!www.]$domain/<presenter>[/<action>[/<id>]]", array(
             'presenter' => array(
                 Route::VALUE => 'Public:Homepage',
