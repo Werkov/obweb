@@ -1,6 +1,6 @@
 <?php //netteloader=Nette\Framework
 namespace {
-error_reporting(E_ALL|E_STRICT);@set_magic_quotes_runtime(FALSE);iconv_set_encoding('internal_encoding','UTF-8');extension_loaded('mbstring')&&mb_internal_encoding('UTF-8');@header('X-Powered-By: Nette Framework');@header('Content-Type: text/html; charset=utf-8');define('NETTE',TRUE);define('NETTE_DIR',__DIR__);define('NETTE_VERSION_ID',20000);define('NETTE_PACKAGE','5.3');}namespace Nette\Application{use Nette;
+error_reporting(E_ALL|E_STRICT);@set_magic_quotes_runtime(FALSE);@iconv_set_encoding('internal_encoding','UTF-8');extension_loaded('mbstring')&&mb_internal_encoding('UTF-8');@header('X-Powered-By: Nette Framework');@header('Content-Type: text/html; charset=utf-8');define('NETTE',TRUE);define('NETTE_DIR',__DIR__);define('NETTE_VERSION_ID',20000);define('NETTE_PACKAGE','5.3');}namespace Nette\Application{use Nette;
 class
 AbortException extends\Exception{}class
 ApplicationException extends\Exception{}class
@@ -2578,7 +2578,7 @@ render(){$obLevel=ob_get_level();$panels=array();foreach($this->panels as$id=>$p
 
 <!-- Nette Debug Bar -->
 
-<?php 
+<?php
 ob_start()?>
 &nbsp;
 
@@ -2856,7 +2856,7 @@ count(get_included_files())?>)</h3>
 
 			<h3><a href="#" rel="netteBsPnl<?php echo++$counter?>">Configuration options <abbr>&#x25ba;</abbr></a></h3>
 			<div id="netteBsPnl<?php echo$counter?>" class="outer nette-collapsed">
-			<?php 
+			<?php
 ob_start();@phpinfo(INFO_CONFIGURATION|INFO_MODULES);echo
 preg_replace('#^.+<body>|</body>.+$#s','',ob_get_clean())?>
 			</div>
