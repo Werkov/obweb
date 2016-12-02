@@ -18,7 +18,6 @@ if (version_compare(PHP_VERSION, '5.2.0', '<')) {
 	throw new Exception('dibi needs PHP 5.2.0 or newer.');
 }
 
-@set_magic_quotes_runtime(FALSE); // intentionally @
 
 
 
