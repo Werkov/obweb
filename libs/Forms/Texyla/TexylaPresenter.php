@@ -1,7 +1,7 @@
 <?php
 
 use Nette\Environment,
-    Nette\Utils\Strings as String,
+    Nette\Utils\Strings,
     Nette\Image;
 use \Nette\Application\Responses\JsonResponse as JsonResponse;
 
@@ -75,7 +75,7 @@ class TexylaPresenter extends BasePresenter {
 //    protected function getFolderPath($folder) {
 //        $folderPath = realpath($this->baseFolderPath . ($folder ? "/" . $folder : ""));
 //
-//        if (!is_dir($folderPath) || !is_writable($folderPath) || !String::startsWith($folderPath, realpath($this->baseFolderPath))) {
+//        if (!is_dir($folderPath) || !is_writable($folderPath) || !Strings::startsWith($folderPath, realpath($this->baseFolderPath))) {
 //            throw new InvalidArgumentException;
 //        }
 //
@@ -124,7 +124,7 @@ class TexylaPresenter extends BasePresenter {
 //            $fileName = $fileInfo->getFileName();
 //
 //            // skip hidden files, . and ..
-//            if (String::startsWith($fileName, "."))
+//            if (Strings::startsWith($fileName, "."))
 //                continue;
 //
 //            // filename with folder
@@ -217,7 +217,7 @@ class TexylaPresenter extends BasePresenter {
 //        }
 //
 //        // move
-//        $fileName = String::webalize($file->getName(), ".");
+//        $fileName = Strings::webalize($file->getName(), ".");
 //        $path = $folderPath . "/" . $fileName;
 //
 //        if (@$file->move($path)) {
@@ -243,7 +243,7 @@ class TexylaPresenter extends BasePresenter {
 //     * @param string new folder name
 //     */
 //    public function actionMkDir($folder, $name) {
-//        $name = String::webalize($name);
+//        $name = Strings::webalize($name);
 //        $path = $this->getFolderPath($folder) . "/" . $name;
 //
 //        if (mkdir($path)) {
@@ -296,7 +296,7 @@ class TexylaPresenter extends BasePresenter {
 //     */
 //    public function actionRename($folder, $oldname, $newname) {
 //        $oldpath = $this->getFolderPath($folder) . "/" . $oldname;
-//        $newpath = $this->getFolderPath($folder) . "/" . String::webalize($newname, ".");
+//        $newpath = $this->getFolderPath($folder) . "/" . Strings::webalize($newname, ".");
 //
 //        if (!file_exists($oldpath)) {
 //            $this->sendError("File does not exist.");
