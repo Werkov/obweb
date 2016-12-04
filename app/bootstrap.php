@@ -127,8 +127,6 @@ Container::extensionMethod('addDatePicker', function (Container $container, $nam
 Container::extensionMethod('addMultipleTextSelect', function (Container $container, $name, OOB\Forms\IItemsModel $model, $label = NULL) {
             return $container[$name] = new OOB\MultipleTextSelect($model, $label);
         });
-MultipleFileUpload::register();
-MultipleFileUpload::setQueuesModel(new MFUQueuesDibi());
 PavelMaca\Captcha\CaptchaControl::register();
 Nette\Forms\Controls\CheckboxList::register();
 \OOB\TextUrl::register();

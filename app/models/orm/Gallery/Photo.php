@@ -61,6 +61,10 @@ class Photo extends \Navigation\Record implements \Nette\Security\IResource {
         $this->file = md5($this->getPrimary() . $file->name) . ".jpg";
 
         try {
+            if (!$file->isOk()) {
+                throw new \Nette\InvalidStateException("Invalid file upload.");
+            }
+
             if (!$file->isImage()) {
                 throw new \Nette\InvalidStateException("Uploaded file is not an image.");
             }
@@ -81,7 +85,8 @@ class Photo extends \Navigation\Record implements \Nette\Security\IResource {
 
     public function delete() {
         $conf = \Nette\Environment::getConfig("gallery");
-        unlink(\WWW_DIR . '/' . $conf["path"] . '/' . $this->file);
+        $file = \WWW_DIR . '/' . $conf["path"] . '/' . $this->file;
+        file_exists($file) && unlink($file);
         parent::delete();
     }
 
