@@ -51,7 +51,7 @@ final class UserPresenter extends \RecordPresenter {
         if ($values["password"] == "")
             $user->loadValues(array("password"));
         else
-            $user->password = $user->saltPassword($user->password);
+	    $user->password = $user->hashPassword($values["password"]);
     }
 
     // </editor-fold>

@@ -42,7 +42,7 @@ final class PersonalSettingsPresenter extends \AuthenticatedPresenter {
         if ($values["oldPassword"] != "") {
             try {
                 if ($user->checkPassword($values["oldPassword"])) {
-                    $user->password = $user->saltPassword($values["newPassword"]);
+                    $user->password = $user->hashPassword($values["newPassword"]);
 
                     $user->save();
                 } else {

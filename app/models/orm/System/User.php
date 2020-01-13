@@ -64,22 +64,23 @@ class User extends \Navigation\Record implements \Nette\Security\IResource, \Net
 
     /**
      *
-     * @param string $password Password to check.
+     * @param string $password Plaintext password to check.
      * @return bool
      */
     public function checkPassword($password) {
-        return $this->password === md5($password);
+        $compat = md5($password);
+        return password_verify($compat, $this->password);
     }
 
     /**
-     * Salts the password using user data.
-     * 
-     * @todo Salt actually!
-     * @param string $password Password to salt
+     * Hashes the password using user data.
+     *
+     * @param string $password Password to hash
      * @return string
      */
-    public function saltPassword($password) {
-        return md5($password);
+    public function hashPassword($password) {
+        $compat = md5($password);
+        return password_hash($compat, PASSWORD_BCRYPT);
     }
 
     /**
