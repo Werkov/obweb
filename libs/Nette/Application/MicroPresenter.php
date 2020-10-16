@@ -60,7 +60,7 @@ class MicroPresenter extends Nette\Object implements Application\IPresenter
 		}
 
 		$params = $request->getParameters();
-		if (!isset($params['callback'])) {
+		$callback = isset($params['callback']) ? $params['callback'] : null; if (!$callback instanceof \Closure) { // patched to fix CVE-2020-15227
 			return;
 		}
 		$params['presenter'] = $this;
