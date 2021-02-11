@@ -48,10 +48,13 @@ final class UserPresenter extends \RecordPresenter {
                 }, $values["roles_id"]);
 
         //ugly workaround not to reset password when field is empty
-        if ($values["password"] == "")
-            $user->loadValues(array("password"));
-        else
-	    $user->password = $user->hashPassword($values["password"]);
+        if ($values["password"] == "") {
+            if ($user->getState() == \Ormion\Record::STATE_EXISTING)
+                $user->loadValues(array("password"));
+            else
+                $user->password = User::DISABLED_PASSWORD;
+        } else
+            $user->password = $user->hashPassword($values["password"]);
     }
 
     // </editor-fold>
@@ -195,8 +198,8 @@ final class UserPresenter extends \RecordPresenter {
         $container->addCheckboxList("roles_id", "Přidělené role")
                 ->setItems($items);
 //      $container->addMultiSelect("roles_id", "Přidělené role")
-//	      //->addRule(Form::FILLED)
-//	      ->setItems($items);
+//              //->addRule(Form::FILLED)
+//              ->setItems($items);
     }
 
     // </editor-fold>

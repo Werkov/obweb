@@ -31,6 +31,8 @@ use Nette\Security\Permission;
  */
 class User extends \Navigation\Record implements \Nette\Security\IResource, \Nette\Security\IIdentity, \Serializable {
 
+    const DISABLED_PASSWORD = "!";
+
     public function getResourceId() {
         return "system_user";
     }
